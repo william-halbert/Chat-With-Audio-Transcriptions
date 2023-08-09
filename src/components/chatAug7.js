@@ -29,7 +29,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
-import { process } from "dot";
 import { getDatabase } from "firebase/database";
 import Header from "./HeaderLanding";
 import "font-awesome/css/font-awesome.min.css";
