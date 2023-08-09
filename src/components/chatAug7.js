@@ -770,7 +770,7 @@ function AudioToText() {
                   >
                     Add Audio Files
                   </h4>
-                  <h5>or drag and drop</h5>
+                  <h5>.mp3 and .m4a files are accepted</h5>
                 </label>
                 {audioFileDetails && (
                   <div style={{ marginTop: "15px", textAlign: "center" }}>
@@ -1202,30 +1202,38 @@ function AudioToText() {
             <div style={{ marginTop: "60px" }}></div>
             {/*Conversation  */}
             <div>
-              {conversation.map((item, index) => (
-                <div
-                  style={{
-                    padding: "24px 7vw",
-                    margin: "0",
-                    backgroundColor:
-                      item.role === "user" ? "#F8FBFF" : "rgba(233,244,255,.7)",
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: "36px",
-                  }}
-                >
-                  <img
-                    src={item.role === "user" ? defaultUserImg : robotImg}
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                  <p
-                    key={index}
-                    style={{ fontSize: "16px", lineHeight: "24px" }}
+              {conversation.map((item, index) => {
+                if (transcribing == "Done") {
+                  if (index < 2) return null;
+                }
+
+                return (
+                  <div
+                    style={{
+                      padding: "24px 7vw",
+                      margin: "0",
+                      backgroundColor:
+                        item.role === "user"
+                          ? "#F8FBFF"
+                          : "rgba(233,244,255,.7)",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "36px",
+                    }}
                   >
-                    {item.content}
-                  </p>
-                </div>
-              ))}
+                    <img
+                      src={item.role === "user" ? defaultUserImg : robotImg}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                    <p
+                      key={index}
+                      style={{ fontSize: "16px", lineHeight: "24px" }}
+                    >
+                      {item.content}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
             <div style={{ marginTop: "120px" }}></div>
             {/* Send a message  */}

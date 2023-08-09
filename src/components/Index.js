@@ -1,7 +1,13 @@
 import React, { useRef, useState } from "react";
 import Header from "./HeaderIndex";
 import HeroImg from "../images/transcribe.png";
-import demoVideo from "../images/demo.mov";
+import demoVideo from "../images/transcribePt2.mov";
+import spelling from "../images/spelling.mov";
+import folders from "../images/folders.mov";
+import "./Index.css";
+
+import transcribePt1 from "../images/transcribePt1.mov";
+
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
 import { getDatabase } from "firebase/database";
@@ -140,16 +146,17 @@ export default function Index() {
               fontSize: "30px",
               alignSelf: "start",
               marginLeft: "5vw",
-              marginBottom: "10vh",
+              marginBottom: "5vh",
               maxWidth: "90vw",
             }}
           >
-            Ask about class topics or even ask what homework was assigned
+            Add your classes and lectures, get the transcript and summary, ask
+            any questions
           </h3>
           <video
             src={demoVideo}
             style={{
-              maxWidth: "90vw",
+              maxWidth: "70vw",
               borderRadius: "15px",
               boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
             }}
@@ -157,6 +164,91 @@ export default function Index() {
             loop
             muted
           />
+        </section>
+        {/* 2nd demo section */}
+        <section
+          style={{
+            marginTop: "5vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "42px",
+              alignSelf: "start",
+              marginLeft: "5vw",
+            }}
+          ></h2>
+          <h3
+            style={{
+              fontSize: "30px",
+              alignSelf: "start",
+              marginLeft: "5vw",
+              marginBottom: "5vh",
+              maxWidth: "90vw",
+            }}
+          >
+            Record and upload lectures, come back when they're processed
+          </h3>
+          <video
+            src={transcribePt1}
+            style={{
+              maxWidth: "70vw",
+              borderRadius: "15px",
+              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+            }}
+            autoPlay
+            loop
+            muted
+          />
+        </section>
+        {/* 3rd demo section */}
+        <section
+          style={{
+            marginTop: "5vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: "30px",
+              alignSelf: "start",
+              marginLeft: "5vw",
+              marginBottom: "5vh",
+              maxWidth: "90vw",
+            }}
+          >
+            Easily manage folders and change names with a double-click and
+            enter.
+          </h3>
+          <div style={{ display: "flex", gap: "5vw" }}>
+            <video
+              src={folders}
+              style={{
+                width: "30vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              }}
+              autoPlay
+              loop
+              muted
+            />
+            <video
+              src={spelling}
+              style={{
+                width: "30vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              }}
+              autoPlay
+              loop
+              muted
+            />
+          </div>
         </section>
       </div>
       <Footer />
