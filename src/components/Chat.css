@@ -1,0 +1,60 @@
+.sidebar-plus:focus,
+.sidebar-edit:focus,
+.sidebar-share:focus,
+.trash-icon:focus {
+  box-shadow: none;
+}
+
+.sidebar-share:hover,
+.sidebar-plus:hover,
+.sidebar-edit:hover,
+.trash-icon:hover {
+  background: rgba(211, 211, 211, 0.5) !important;
+  cursor: pointer;
+}
+.sidebar-share,
+.sidebar-edit,
+.trash-icon {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.sidebar-plus {
+  padding: 9px 15px;
+  border-radius: 5px;
+}
+.no-focus:focus {
+  box-shadow: none;
+}
+#dropdown-basic .dropdown-menu {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+.name-change-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+.audio-input:hover {
+  border: 2px solid blue;
+}
+.audio-input {
+  border: 2px solid gray;
+}
+.transcript-header .modal-title {
+  margin: 0 auto 0 32%;
+}
+.transcript-tab:hover,
+.transcript-summary-tab:hover {
+  background: rgb(110, 110, 110) !important;
+  cursor: pointer;
+}
+
+.modal-lg {
+  margin-left: 50vw;
+  transform: translate(-50%);
+  overflow-y: auto;
+}
+.chat-item:hover,
+.folder-item:hover {
+  background-color: rgba(211, 211, 211, 0.2) !important;
+}

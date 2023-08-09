@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "spry-device-392819",
+  "private_key_id": "d56f36a9f361ccf64a7c197241896a58e14d0b1b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDOmBDDIXD1RV+E\nKwqtIaaVO61+FqEfzXUaXBtOmYDaqlE4K5oUe2Fn/g+cB57jS+1fzl75HuXvfnWJ\nwq9RHmjvmeFg5SjzjLh0EkKVHdSgJ+NcuAu3IdhURUquhOwnwqz3iaxkoG+EJ49w\nx7Ht7V6//Ww76UhYqD1zYIWEwlH7yDlDr9taPTIezd64FkyJI6TLzPBp7w3fa79t\n6gQOYvGruT1jlp2wTwkvvuz6mjCQ72lRnAVWP2galUAQnjvmGurwo3qNnYT+yE3N\nV3RuQ/kPqZdBcdUOljLAaUonHihx4Ssps4CN6OIzcgsKIbhCuxhAbYgqdvDlNHlF\nuNuCyLg3AgMBAAECggEAETCL7ICC0pWkHe4q5D7ximc9x0kAvRGuVbQmPYL+OrOD\nMIZIOr4NW8bC67uil80AgkE8m8PbY/MEuqKtTbWXC6ClJRfMMX+a9WVzjs69m1nW\nTCewKduyEUj2rtC2iZRkKfCVnIXQ4ZEdGUg0YNSoVpcyg0Wk1GOjQU9drK8yfR2E\ncB/xOYvDvJCrdgLEkYv3J4HlPTySHkV8fAhk5sVnKXVdO2HACO1EfI2h/8mkX+iL\nTBaZc8exjy1xaiWzhO/UF6fkUqI39Q9qWaCHpHWOv+ZVvT3g9Cf1hdknglTVDAUp\nwl67UaQVUGEOcjB45Yz6VGQFIGccDnluf00pNbXZsQKBgQD29UjTjdt+GiNncRbA\n/wPYEUmR51QjnBGjSvCVi4Lx4Z6Pyhk4qgDTvba5OdIxGuW0Hts+Ga7HX0NndtEb\nWBWAml6/8GONiZqr0aveFBEZDhc5t6VL9UWtzLrh3wET0b0rIhLBsNtzO3rBvoUO\nfcNx5sZF+0HxcWwPE8INzZ8T/wKBgQDWKHOkh78FFF+5xM3xNhCOXHoJ5/jKrOgW\nho3JQFZa01P3sXr7FMw9t2nfRryhEo/THto+sq0Dv4t4APwK4eYBt5bu+2A/Uedh\nngRx1BAT6FuAcIM+H5wGTIT7z+oIJQlkSGQm7TrtR8IClQpTkwWlQM1a28WSai7O\niFynW7n7yQKBgQDmr9vWmoW1Nu9pek85+z15ATULEN8c4HXtZlx0JT0te4dlY/DJ\naKybHnVocuWwryJxbf149f65CHjrVicg9tgnKIxnmUM1fJu58oMsUOxjzjDN3omO\n+c+b+Ul9IpZcECk3+H0y52UnMCGMh8686ae/Z0ZBKuK/iibZsqgrwq7duwKBgGYf\nnCXVZc3yTUO1CdAAzBxXFQssR4O+uF4lg+94crWVGPGA/PhGjq7Pi/khLkpRI6y1\nhbVoVwD2kneDYK1/08L13U/RJ7CKSiBOzifJzHDx2NCC1tMFF84ZJ0E9gIipwLTF\noJy/e94y3d2FXQtFjOek40h0jN6pK/DpLeXQ4/uhAoGARWfHQxYV+axT/SB7qW61\nKXpZrPlnmLYQWp7NtACZHOaNVAoOGkA2PT89XfuFsqACi0OIW1rl762V5RaJRsQs\nNmWxrHwfIqynTBKmun35UyKJZy+ynrTepVmdFXjCBbVlENsOrAg0FZ0c7oMwN1Ks\nZ/21GGcV/qEcMmwyTcc4j/U=\n-----END PRIVATE KEY-----\n",
+  "client_email": "audio-to-text@spry-device-392819.iam.gserviceaccount.com",
+  "client_id": "112361320903077976202",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/audio-to-text%40spry-device-392819.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

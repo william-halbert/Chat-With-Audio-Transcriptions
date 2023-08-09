@@ -1,0 +1,82 @@
+#basic-nav-dropdown {
+  border-radius: 5px;
+  padding: 0px;
+  display: none;
+  margin-right: 50px;
+}
+.desktop {
+  display: unset;
+}
+.row {
+  flex-direction: row;
+  display: flex;
+}
+#basic-nav-dropdown:focus {
+  box-shadow: none !important;
+}
+.mobile {
+  display: none;
+}
+.navbar-custom {
+  background-color: white !important;
+}
+#basic-nav-dropdown:hover {
+  background: rgba(211, 211, 211, 0.25);
+}
+
+#basic-nav-dropdown::after {
+  display: none;
+}
+#dropdown-basic {
+  background: none;
+  border: none;
+  display: unset;
+}
+#dropdown-basic:hover {
+  background: rgba(211, 211, 211, 0.25);
+}
+#dropdown-basic:focus {
+  box-shadow: none !important;
+}
+#dropdown-basic::after {
+  display: none;
+}
+#dropdown-basic .dropdown-menu {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+@media (max-width: 993px) {
+  #basic-nav-dropdown {
+    display: unset;
+  }
+  #basic-nav-dropdown:focus {
+    box-shadow: none;
+  }
+  #basic-nav-dropdown:active {
+    box-shadow: none;
+  }
+  #dropdown-basic {
+    display: none;
+  }
+  .mobile {
+    display: unset;
+  }
+  .desktop {
+    display: none;
+  }
+}
+.nav-link:focus,
+.nav-link:active {
+  background-color: inherit; /* retains the original color */
+  outline: none; /* removes browser-default focus outline */
+  box-shadow: none; /* removes any focus shadows applied by Bootstrap */
+}
+
+.dropdown-item:focus,
+.dropdown-item:active {
+  background-color: inherit; /* or you could set to a specific color */
+  color: black; /* retains the original color */
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+}
