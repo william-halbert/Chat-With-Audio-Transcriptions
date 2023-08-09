@@ -263,7 +263,7 @@ export function AuthProvider({ children }) {
     const docData = {
       userId: String(uid),
       createdDate: Timestamp.fromDate(new Date()),
-      credits: 50,
+      credits: 0,
       email: email,
     };
     try {
