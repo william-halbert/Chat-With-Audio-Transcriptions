@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./HeaderLanding";
+import "./Pricing.css";
 
 export default function Pricing() {
   const giveCredits = true;
@@ -7,14 +8,12 @@ export default function Pricing() {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "24px",
     borderRadius: "25px",
     minWidth: "15vw",
-    justifyContent: "start",
+    justifyContent: "center",
     boxShadow: "1px 1px 15px rgba(0,123,255, .8)",
     margin: "24px",
-    paddingTop: "10vh",
-    paddingBottom: "10vh",
+    padding: "10vh 3vw",
     textAlign: "center",
   };
 
@@ -23,22 +22,34 @@ export default function Pricing() {
       <Header />
       <div style={{ marginTop: "16vh" }}></div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
-        <h1 style={{ fontSize: "42px" }}>Usage-Based </h1>
+        <h1 className="pricing-h1" style={{ fontSize: "42px" }}>
+          Usage-Based{" "}
+        </h1>
         <ul>
-          <li style={{ fontSize: "28px", marginTop: "4px" }}>
+          <li
+            className="pricing-li"
+            style={{ fontSize: "28px", marginTop: "4px" }}
+          >
             Transcriptions and chats (OpenAI APIs) are usage-based costs,
             charged per request
           </li>
-          <li style={{ fontSize: "28px", marginTop: "4px" }}>
+          <li
+            className="pricing-li"
+            style={{ fontSize: "28px", marginTop: "4px" }}
+          >
             Buy credits to be able to use these functionalities
           </li>
-          <li style={{ fontSize: "28px", marginTop: "4px" }}>
+          <li
+            className="pricing-li"
+            style={{ fontSize: "28px", marginTop: "4px" }}
+          >
             For example, a 40-minute lecture with 5 questions would be $1 worth
             of credits
           </li>
         </ul>
       </div>
       <div
+        className="pricing-numbers"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -50,23 +61,25 @@ export default function Pricing() {
         {giveCredits ? (
           <>
             <div
+              className="pricing-free-credits"
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                padding: "24px",
                 borderRadius: "25px",
                 minWidth: "15vw",
-                justifyContent: "start",
+                justifyContent: "center",
                 margin: "24px",
-                paddingTop: "10vh",
-                paddingBottom: "10vh",
+                padding: "10vh 3vw",
                 textAlign: "center",
                 boxShadow: "1px 1px 15px rgba(221,221,221, .8)",
               }}
             >
               <h1 style={{ fontSize: "54px" }}>Free</h1>
-              <h2 style={{ fontSize: "30px", maxWidth: "250px" }}>
+              <h2
+                className="pricing-free-credits-h2"
+                style={{ fontSize: "30px", maxWidth: "250px" }}
+              >
                 $0.50 in credit upon signing up
               </h2>
             </div>
@@ -74,13 +87,14 @@ export default function Pricing() {
         ) : (
           ""
         )}
-        <div style={sectionStyle}>
+        <div style={sectionStyle} className="pricing-audio">
           <h1 style={{ fontSize: "54px" }}>$0.02</h1>
           <h2 style={{ fontSize: "30px", maxWidth: "250px" }}>
             per minute of audio
           </h2>
         </div>
         <div
+          className="pricing-tokens"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -90,7 +104,7 @@ export default function Pricing() {
             margin: "24px",
 
             textAlign: "center",
-            padding: "10vh 5vw",
+            padding: "10vh 3vw",
             boxShadow: "1px 1px 15px rgba(0,123,255, .8)",
             width: "400px",
           }}

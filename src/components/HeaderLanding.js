@@ -85,7 +85,10 @@ export default function Header() {
               <img src={Logo} style={{ height: "68px" }} alt="Logo" />
             </Link>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle
+            className="mobile-menu-icon"
+            aria-controls="basic-navbar-nav"
+          />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <div className="desktop" style={{ marginRight: "18px" }}>
@@ -126,10 +129,7 @@ export default function Header() {
                 )}
                 {user && (
                   <>
-                    <Nav.Link
-                      href="my-credits"
-                      style={{ padding: "10px 24px" }}
-                    >
+                    <Nav.Link href="chat" style={{ padding: "10px 24px" }}>
                       Chat
                     </Nav.Link>
                     <Nav.Link
@@ -141,7 +141,10 @@ export default function Header() {
                     <Nav.Link href="pricing" style={{ padding: "10px 24px" }}>
                       Pricing
                     </Nav.Link>
-                    <Nav.Link href="logout" style={{ padding: "10px 24px" }}>
+                    <Nav.Link
+                      onClick={handleLogout}
+                      style={{ padding: "10px 24px" }}
+                    >
                       Log Out
                     </Nav.Link>
                   </>

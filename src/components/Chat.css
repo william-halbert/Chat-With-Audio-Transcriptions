@@ -58,3 +58,66 @@
 .folder-item:hover {
   background-color: rgba(211, 211, 211, 0.2) !important;
 }
+.mobile {
+  display: none;
+}
+.desktop {
+  display: unset;
+}
+#dropdown-basic-chat {
+  background: none;
+  border: none;
+  display: unset;
+}
+#dropdown-basic-chat:hover {
+  background: rgba(211, 211, 211, 0.25);
+}
+#dropdown-basic-chat:focus {
+  box-shadow: none !important;
+}
+#dropdown-basic-chat::after {
+  display: none;
+}
+#dropdown-basic-chat .dropdown-menu {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+@media (max-width: 1100px) {
+  .chat-see-transcript-button {
+    max-width: 175px !important;
+  }
+}
+@media (max-width: 500px) {
+  .mobile {
+    display: unset;
+  }
+  .desktop {
+    display: none;
+  }
+  .chat-workspace {
+    flex: 1 !important;
+    width: 100vw !important;
+  }
+  .sidebar {
+    flex: 1 !important;
+    width: 100vw !important;
+  }
+  .chat-header-mobile {
+    width: 100vw !important;
+  }
+  .sidebar-header {
+    width: 100vw !important;
+  }
+  .chat-see-transcript-button {
+    min-width: 120px !important;
+    padding: 5px !important;
+    max-width: 250px !important;
+    border-radius: 15px !important;
+  }
+  .message-input {
+    min-width: 80vw !important;
+  }
+  .send-message {
+    width: 100vw !important;
+  }
+}

@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import Header from "./HeaderIndex";
 import HeroImg from "../images/transcribe.png";
 import demoVideo from "../images/transcribePt2.mov";
+import demo2Mobile from "../images/demo2Mobile.mov";
+import demo1Mobile from "../images/demo1Mobile.mov";
+
 import spelling from "../images/spelling.mov";
 import folders from "../images/folders.mov";
 import "./Index.css";
@@ -61,12 +64,19 @@ export default function Index() {
       )}
       <div style={{ marginTop: "86px", marginBottom: "20vh" }}>
         {/* Hero section */}
-        <section style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ alignSelf: "center", marginLeft: "5vw" }}>
-            <h1 style={{ fontSize: "84px" }}>
+        <section
+          className="index-hero"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <div
+            className="index-hero-left"
+            style={{ alignSelf: "center", marginLeft: "5vw" }}
+          >
+            <h1 className="index-hero-left-h1" style={{ fontSize: "84px" }}>
               Transcribe audio then chat with it
             </h1>
             <div
+              className="index-hero-left-buttons-div"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -85,6 +95,7 @@ export default function Index() {
                   minWidth: "200px",
                   minHeight: "unset",
                 }}
+                className="index-hero-left-button"
                 onClick={() => {
                   const user = auth.currentUser;
                   if (user) {
@@ -98,6 +109,7 @@ export default function Index() {
                 {user ? "Chat" : "Get Started"}
               </button>
               <h2
+                className="index-hero-left-h2"
                 onClick={() =>
                   demoSectionRef.current.scrollIntoView({ behavior: "smooth" })
                 }
@@ -111,19 +123,16 @@ export default function Index() {
                   cursor: "pointer",
                 }}
               >
-                See demos below
+                See demos
               </h2>
             </div>
           </div>
-          <img
-            src={HeroImg}
-            alt="Hero"
-            style={{ maxHeight: "80vh", marginRight: "5vw" }}
-          />
+          <img src={HeroImg} alt="Hero" className="index-hero-right" />
         </section>
 
         {/* 1st demo section */}
         <section
+          className="demo1"
           ref={demoSectionRef}
           style={{
             marginTop: "15vh",
@@ -142,6 +151,7 @@ export default function Index() {
             Students
           </h2>
           <h3
+            className="demo-h3"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -154,7 +164,20 @@ export default function Index() {
             any questions
           </h3>
           <video
+            className="demo-desktop"
             src={demoVideo}
+            style={{
+              maxWidth: "70vw",
+              borderRadius: "15px",
+              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+            }}
+            autoPlay
+            loop
+            muted
+          />
+          <video
+            className="demo-mobile"
+            src={demo2Mobile}
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
@@ -182,6 +205,7 @@ export default function Index() {
             }}
           ></h2>
           <h3
+            className="demo-h3"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -193,7 +217,20 @@ export default function Index() {
             Record and upload lectures, come back when they're processed
           </h3>
           <video
+            className="demo-desktop"
             src={transcribePt1}
+            style={{
+              maxWidth: "70vw",
+              borderRadius: "15px",
+              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+            }}
+            autoPlay
+            loop
+            muted
+          />
+          <video
+            className="demo-mobile"
+            src={demo1Mobile}
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
@@ -214,6 +251,7 @@ export default function Index() {
           }}
         >
           <h3
+            className="demo-h3"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -225,8 +263,9 @@ export default function Index() {
             Easily manage folders and change names with a double-click and
             enter.
           </h3>
-          <div style={{ display: "flex", gap: "5vw" }}>
+          <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
             <video
+              className="demo3-vid"
               src={folders}
               style={{
                 width: "30vw",
@@ -238,6 +277,7 @@ export default function Index() {
               muted
             />
             <video
+              className="demo3-vid"
               src={spelling}
               style={{
                 width: "30vw",

@@ -1,0 +1,19 @@
+@media (max-width: 500px) {
+  .my-credits-hero,
+  .my-credits-usage {
+    max-width: unset !important;
+    width: 80vw !important;
+    margin: 0 auto !important;
+    padding: 18px !important;
+  }
+  .my-credits-usage {
+    margin-top: 5vh !important;
+  }
+  .my-credits-select-div {
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .my-credits-select {
+    margin-bottom: 18px !important;
+  }
+}

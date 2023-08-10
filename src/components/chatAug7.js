@@ -72,6 +72,7 @@ function AudioToText() {
   const [transcribing, setTranscribing] = useState("No");
   const [transcriptionProgress, setTranscriptionProgress] = useState(0);
   const [showTranscriptText, setShowTranscriptText] = useState("Transcript");
+  const [showSidebar, setShowSidebar] = useState(null);
 
   const {
     createFoldersAndChats,
@@ -116,7 +117,16 @@ function AudioToText() {
     e.preventDefault();
     e.stopPropagation();
   }
-
+  function handleShowSidebar(e) {
+    e.preventDefault();
+    console.log("handleShowSidebar");
+    setShowSidebar(true);
+  }
+  function handleHideSidebar() {
+    if (window.innerWidth < 500) {
+      setShowSidebar(false);
+    }
+  }
   function handleDragEnter(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -614,6 +624,12 @@ function AudioToText() {
     }
   }
 
+  console.log(
+    "showSidebar",
+    showSidebar,
+    "window.innerWidth",
+    window.innerWidth
+  );
   return (
     <div>
       {/*modal Are you sure? */}
@@ -770,7 +786,10 @@ function AudioToText() {
                   >
                     Add Audio Files
                   </h4>
-                  <h5>.mp3 and .m4a files are accepted</h5>
+                  <h5 style={{ maxWidth: "400px", margin: "0 auto" }}>
+                    .mp3 and .m4a files are accepted, with a maximum length of
+                    60 min
+                  </h5>
                 </label>
                 {audioFileDetails && (
                   <div style={{ marginTop: "15px", textAlign: "center" }}>
@@ -891,256 +910,270 @@ function AudioToText() {
         }}
       >
         {/*sidebar  */}
-        <div
-          className="sidebar"
-          style={{
-            flex: "0.25",
-            overflowY: "auto",
-            padding: "0",
-            background: "rgba(243,245,249, .9)",
-          }}
-        >
-          {/*sidebar header  */}
+        {showSidebar == true || showSidebar == null ? (
           <div
+            className="sidebar"
             style={{
-              position: "fixed",
-              top: "0",
-              left: "0",
-              width: "25vw",
+              flex: "0.25",
+              overflowY: "auto",
+              padding: "0",
               background: "rgba(243,245,249, .9)",
-              zIndex: "5",
-              paddingTop: "5px",
             }}
           >
-            <Row
-              className="align-items-center justify-content-between"
-              style={{ padding: "0 0 0 6px" }}
+            {/*sidebar header  */}
+            <div
+              className="sidebar-header"
+              style={{
+                position: "fixed",
+                top: "0",
+                left: "0",
+                width: "25vw",
+                background: "rgba(243,245,249, .9)",
+                zIndex: "5",
+                paddingTop: "5px",
+              }}
             >
-              <Col
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "start",
-                }}
+              <Row
+                className="align-items-center justify-content-between"
+                style={{ padding: "0 0 0 6px" }}
               >
-                <h1
-                  className="sidebar-edit"
+                <Col
                   style={{
-                    fontSize: "14px",
-                    margin: "0",
-                    color: "black",
-                    paddding: "0",
-                    background: editMode ? "rgba(221, 221, 221, 0.5)" : "none",
-                  }}
-                  onClick={() => {
-                    toggleEditMode();
-                    toggleSelectBoxes();
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "start",
                   }}
                 >
-                  {editMode ? "Done" : "Select"}
-                </h1>
-                {editMode ? (
-                  <FontAwesomeIcon
-                    className="trash-icon"
+                  <h1
+                    className="sidebar-edit"
                     style={{
+                      fontSize: "14px",
                       margin: "0",
-                      marginLeft: "4px",
-                    }}
-                    icon={faTrash}
-                    onClick={() => {
-                      if (selectedItems.length > 0) {
-                        setShowDeleteModal(true);
-                      }
-                    }}
-                  />
-                ) : (
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      as={FontAwesomeIcon}
-                      icon={faPlus}
-                      style={{
-                        color: "black",
-                        border: "none",
-                        background: "transparent",
-                      }}
-                      className="sidebar-plus"
-                    ></Dropdown.Toggle>
-                    <Dropdown.Menu
-                      className="custom-popup"
-                      style={{
-                        width: "15vw",
-                        marginTop: "5px",
-                      }}
-                    >
-                      <InputGroup
-                        style={{ width: "90%", margin: "0 auto 4px auto" }}
-                      >
-                        <FormControl
-                          value={newItemLabel}
-                          placeholder="Enter name"
-                          onChange={(e) => setNewItemLabel(e.target.value)}
-                        />
-                      </InputGroup>
-
-                      <Button
-                        variant="secondary"
-                        className="no-focus"
-                        style={{ width: "90%", margin: "4px 5%" }}
-                        onClick={() => createNewItem("Folder")}
-                      >
-                        Create Folder
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="no-focus"
-                        style={{ width: "90%", margin: "4px 5% 0 5%" }}
-                        onClick={() => createNewItem("Chat")}
-                      >
-                        Create Chat
-                      </Button>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                )}
-              </Col>
-
-              <Col
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "end",
-                }}
-              >
-                <Dropdown
-                  style={{
-                    marginRight: "6px",
-                  }}
-                >
-                  <Dropdown.Toggle id="dropdown-basic" style={{ padding: "" }}>
-                    {
-                      <MenuRoundedIcon
-                        style={{ fill: "black" }}
-                        sx={{ fontSize: 30 }}
-                      />
-                    }
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu
-                    style={{
-                      left: "100%",
-                      transform: "translateX(-100%)",
                       color: "black",
-                      textDecoration: "none",
+                      paddding: "0",
+                      background: editMode
+                        ? "rgba(221, 221, 221, 0.5)"
+                        : "none",
+                    }}
+                    onClick={() => {
+                      toggleEditMode();
+                      toggleSelectBoxes();
                     }}
                   >
-                    {!user && (
-                      <>
-                        <Dropdown.Item href="login">Log In</Dropdown.Item>
-                      </>
-                    )}
-                    {!user && (
-                      <>
-                        <Dropdown.Item href="signup">Sign Up</Dropdown.Item>
-                      </>
-                    )}
-                    {user && (
-                      <>
-                        <Dropdown.Item href="my-credits">
-                          My Credits
-                        </Dropdown.Item>
-                        <Dropdown.Item href="/">Demo</Dropdown.Item>
-                        <Dropdown.Item href="pricing">Pricing</Dropdown.Item>
-                        <Dropdown.Item
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                          onClick={handleLogout}
+                    {editMode ? "Done" : "Select"}
+                  </h1>
+                  {editMode ? (
+                    <FontAwesomeIcon
+                      className="trash-icon"
+                      style={{
+                        margin: "0",
+                        marginLeft: "4px",
+                      }}
+                      icon={faTrash}
+                      onClick={() => {
+                        if (selectedItems.length > 0) {
+                          setShowDeleteModal(true);
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        as={FontAwesomeIcon}
+                        icon={faPlus}
+                        style={{
+                          color: "black",
+                          border: "none",
+                          background: "transparent",
+                        }}
+                        className="sidebar-plus"
+                      ></Dropdown.Toggle>
+                      <Dropdown.Menu
+                        className="custom-popup"
+                        style={{
+                          width: "15vw",
+                          marginTop: "5px",
+                        }}
+                      >
+                        <InputGroup
+                          style={{ width: "90%", margin: "0 auto 4px auto" }}
                         >
-                          Logout
-                        </Dropdown.Item>
-                      </>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Col>
-            </Row>
+                          <FormControl
+                            value={newItemLabel}
+                            placeholder="Enter name"
+                            onChange={(e) => setNewItemLabel(e.target.value)}
+                          />
+                        </InputGroup>
+
+                        <Button
+                          variant="secondary"
+                          className="no-focus"
+                          style={{ width: "90%", margin: "4px 5%" }}
+                          onClick={() => createNewItem("Folder")}
+                        >
+                          Create Folder
+                        </Button>
+                        <Button
+                          variant="primary"
+                          className="no-focus"
+                          style={{ width: "90%", margin: "4px 5% 0 5%" }}
+                          onClick={() => createNewItem("Chat")}
+                        >
+                          Create Chat
+                        </Button>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </Col>
+
+                <Col
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "end",
+                  }}
+                >
+                  <Dropdown
+                    style={{
+                      marginRight: "6px",
+                    }}
+                  >
+                    <Dropdown.Toggle
+                      id="dropdown-basic-chat"
+                      style={{ padding: "" }}
+                    >
+                      {
+                        <MenuRoundedIcon
+                          style={{ fill: "black" }}
+                          sx={{ fontSize: 30 }}
+                        />
+                      }
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu
+                      style={{
+                        left: "100%",
+                        transform: "translateX(-100%)",
+                        color: "black",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {!user && (
+                        <>
+                          <Dropdown.Item href="login">Log In</Dropdown.Item>
+                        </>
+                      )}
+                      {!user && (
+                        <>
+                          <Dropdown.Item href="signup">Sign Up</Dropdown.Item>
+                        </>
+                      )}
+                      {user && (
+                        <>
+                          <Dropdown.Item href="my-credits">
+                            My Credits
+                          </Dropdown.Item>
+                          <Dropdown.Item href="/">Demo</Dropdown.Item>
+                          <Dropdown.Item href="pricing">Pricing</Dropdown.Item>
+                          <Dropdown.Item
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </Dropdown.Item>
+                        </>
+                      )}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+              </Row>
+            </div>
+
+            {/* Render folder and Chat in Sidebar */}
+            <div style={{ marginTop: "60px" }}></div>
+            <ListGroup>
+              <RootDropZone
+                setItemParent={setItemParent}
+                uid={user.uid}
+                setSidebar={setSidebar}
+                style={{ padding: "10px", background: "none" }}
+                setItems={setItems}
+              />
+              {items
+                .filter((item) => !item.parentId)
+                .map((item) =>
+                  item.type === "Folder" ? (
+                    <Folder
+                      key={item.id}
+                      id={item.id}
+                      newItemLabel={newItemLabel}
+                      setNewItemLabel={setNewItemLabel}
+                      items={items}
+                      depth={0}
+                      setItems={setItems}
+                      name={item.name}
+                      setChatId={setChatId}
+                      fetchChat={fetchChat}
+                      setItemParent={setItemParent}
+                      uid={user.uid}
+                      setSidebar={setSidebar}
+                      toggleSelectedItem={toggleSelectedItem}
+                      selectedItems={selectedItems}
+                      currentlySelected={
+                        selectedItems.includes(String(item.id)) ? true : false
+                      }
+                      showSelectBoxes={showSelectBoxes}
+                      saveItemName={saveItemName}
+                      saveFolderIsOpen={saveFolderIsOpen}
+                      chatId={chatId}
+                      handleHideSidebar={handleHideSidebar}
+                    />
+                  ) : (
+                    <Chat
+                      key={item.id}
+                      name={item.name}
+                      chatId={item.id}
+                      overallChatId={chatId}
+                      setChatId={setChatId}
+                      fetchChat={fetchChat}
+                      setItemParent={setItemParent}
+                      uid={user.uid}
+                      parentId={null}
+                      toggleSelectedItem={toggleSelectedItem}
+                      selectedItems={selectedItems}
+                      currentlySelected={
+                        selectedItems.includes(String(item.id)) ? true : false
+                      }
+                      showSelectBoxes={showSelectBoxes}
+                      saveItemName={saveItemName}
+                      setSidebar={setSidebar}
+                      setItems={setItems}
+                      setTranscript={setTranscript}
+                      setTranscriptSummary={setTranscriptSummary}
+                      handleHideSidebar={handleHideSidebar}
+                    />
+                  )
+                )}
+              <RootDropZone
+                setItemParent={setItemParent}
+                uid={user.uid}
+                style={{ padding: "200px 20px", background: "none" }}
+                setSidebar={setSidebar}
+                setItems={setItems}
+              />
+            </ListGroup>
           </div>
-
-          {/* Render folder and Chat in Sidebar */}
-          <div style={{ marginTop: "60px" }}></div>
-          <ListGroup>
-            <RootDropZone
-              setItemParent={setItemParent}
-              uid={user.uid}
-              setSidebar={setSidebar}
-              style={{ padding: "10px", background: "none" }}
-              setItems={setItems}
-            />
-            {items
-              .filter((item) => !item.parentId)
-              .map((item) =>
-                item.type === "Folder" ? (
-                  <Folder
-                    key={item.id}
-                    id={item.id}
-                    newItemLabel={newItemLabel}
-                    setNewItemLabel={setNewItemLabel}
-                    items={items}
-                    depth={0}
-                    setItems={setItems}
-                    name={item.name}
-                    setChatId={setChatId}
-                    fetchChat={fetchChat}
-                    setItemParent={setItemParent}
-                    uid={user.uid}
-                    setSidebar={setSidebar}
-                    toggleSelectedItem={toggleSelectedItem}
-                    selectedItems={selectedItems}
-                    currentlySelected={
-                      selectedItems.includes(String(item.id)) ? true : false
-                    }
-                    showSelectBoxes={showSelectBoxes}
-                    saveItemName={saveItemName}
-                    saveFolderIsOpen={saveFolderIsOpen}
-                    chatId={chatId}
-                  />
-                ) : (
-                  <Chat
-                    key={item.id}
-                    name={item.name}
-                    chatId={item.id}
-                    overallChatId={chatId}
-                    setChatId={setChatId}
-                    fetchChat={fetchChat}
-                    setItemParent={setItemParent}
-                    uid={user.uid}
-                    parentId={null}
-                    toggleSelectedItem={toggleSelectedItem}
-                    selectedItems={selectedItems}
-                    currentlySelected={
-                      selectedItems.includes(String(item.id)) ? true : false
-                    }
-                    showSelectBoxes={showSelectBoxes}
-                    saveItemName={saveItemName}
-                    setSidebar={setSidebar}
-                    setItems={setItems}
-                    setTranscript={setTranscript}
-                    setTranscriptSummary={setTranscriptSummary}
-                  />
-                )
-              )}
-            <RootDropZone
-              setItemParent={setItemParent}
-              uid={user.uid}
-              style={{ padding: "200px 20px", background: "none" }}
-              setSidebar={setSidebar}
-              setItems={setItems}
-            />
-          </ListGroup>
-        </div>
-
+        ) : (
+          ""
+        )}
         {/*Chat Section  */}
-        {chatId ? (
+        {showSidebar == true ||
+        (showSidebar == null && window.innerWidth < 500) ? (
+          ""
+        ) : chatId ? (
           <div
             className="chat-workspace"
             style={{
@@ -1151,7 +1184,7 @@ function AudioToText() {
           >
             {/*Chat Header  */}
             <Row
-              className="align-items-space-between"
+              className="align-items-space-between chat-header-mobile"
               style={{
                 position: "fixed",
                 top: "0",
@@ -1168,7 +1201,19 @@ function AudioToText() {
                   margin: "auto 0 ",
                 }}
               >
-                <h1 style={{ fontSize: "16px", margin: "auto 0 " }}>{date}</h1>
+                <h1
+                  className="desktop"
+                  style={{ fontSize: "16px", margin: "auto 0 " }}
+                >
+                  {date}
+                </h1>
+                <h1
+                  className="mobile"
+                  onClick={handleShowSidebar}
+                  style={{ fontSize: "16px", margin: "auto 0 ", zIndex: "5" }}
+                >
+                  Show Sidebar
+                </h1>
               </Col>
               <Col
                 className="text-center"
@@ -1180,9 +1225,9 @@ function AudioToText() {
               </Col>
               <Col className="text-right">
                 <Button
+                  className="chat-see-transcript-button no-focus"
                   onClick={() => setShowTranscript(true)}
                   variant="primary"
-                  className="no-focus"
                   style={{ borderRadius: "50px" }}
                 >
                   {transcribing === "Done" ? (
@@ -1251,6 +1296,7 @@ function AudioToText() {
                 <Alert
                   style={{ margin: "0 auto", maxWidth: "60%" }}
                   variant="danger"
+                  className="message-input"
                 >
                   {messageError}
                 </Alert>
@@ -1364,6 +1410,7 @@ function Folder({
   setTranscript,
   setTranscriptSummary,
   saveFolderIsOpen,
+  handleHideSidebar,
 }) {
   const currentFolder = items.find((item) => item.id === id);
   const isOpen = currentFolder.isOpen;
@@ -1528,6 +1575,7 @@ function Folder({
                   saveItemName={saveItemName}
                   saveFolderIsOpen={saveFolderIsOpen}
                   chatId={chatId}
+                  handleHideSidebar={handleHideSidebar}
                 />
               ) : (
                 ""
@@ -1558,6 +1606,7 @@ function Folder({
                   setItems={setItems}
                   setTranscript={setTranscript}
                   setTranscriptSummary={setTranscriptSummary}
+                  handleHideSidebar={handleHideSidebar}
                 />
               ) : (
                 ""
@@ -1587,6 +1636,7 @@ function Chat({
   setItems,
   setTranscript,
   setTranscriptSummary,
+  handleHideSidebar,
 }) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "CHAT",
@@ -1604,6 +1654,7 @@ function Chat({
       action
       className="chat-item"
       onClick={() => {
+        handleHideSidebar();
         setChatId(chatId);
         console.log(chatId);
       }}

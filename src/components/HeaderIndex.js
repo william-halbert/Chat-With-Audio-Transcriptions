@@ -102,7 +102,10 @@ export default function Header() {
                   <img src={Logo} style={{ height: "68px" }} alt="Logo" />
                 </Link>
               </Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Toggle
+                className="mobile-menu-icon"
+                aria-controls="basic-navbar-nav"
+              />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
                   <div className="desktop" style={{ marginRight: "18px" }}>
@@ -146,10 +149,7 @@ export default function Header() {
                     )}
                     {user && (
                       <>
-                        <Nav.Link
-                          href="my-credits"
-                          style={{ padding: "10px 24px" }}
-                        >
+                        <Nav.Link href="chat" style={{ padding: "10px 24px" }}>
                           Chat
                         </Nav.Link>
                         <Nav.Link
@@ -165,7 +165,7 @@ export default function Header() {
                           Pricing
                         </Nav.Link>
                         <Nav.Link
-                          href="logout"
+                          onClick={handleLogout}
                           style={{ padding: "10px 24px" }}
                         >
                           Log Out
@@ -253,6 +253,7 @@ export default function Header() {
           }}
         >
           <button
+            className="index-navbar-get-started"
             style={{
               padding: "10px 20px",
               backgroundColor: "#007BFF",
@@ -269,11 +270,12 @@ export default function Header() {
               if (user) {
                 navigate("/chat");
               } else {
-                navigate("/signup");
+                setShowLoginModal(false);
+                setShowSignupModal(true);
               }
             }}
           >
-            {user ? <>Chat</> : <>Get Started</>}
+            {user ? "Chat" : "Get Started"}
           </button>
         </div>
       )}

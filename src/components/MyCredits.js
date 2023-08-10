@@ -5,6 +5,7 @@ import Checkout from "./Checkout";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
 import { getDatabase } from "firebase/database";
+import "./MyCredits.css";
 
 export default function MyCredits() {
   const [amount, setAmount] = useState(5);
@@ -29,6 +30,7 @@ export default function MyCredits() {
       <Header />
       <div style={{ margin: "14vh 5vw" }}>
         <div
+          className="my-credits-hero"
           style={{
             borderRadius: "15px",
             padding: "36px",
@@ -78,6 +80,7 @@ export default function MyCredits() {
           </h2>
 
           <div
+            className="my-credits-select div"
             style={{
               display: "flex",
               alignItems: "center",
@@ -85,8 +88,12 @@ export default function MyCredits() {
               justifyContent: "space-between",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              className="my-credits-select-div"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
               <select
+                className="my-credits-select"
                 style={{
                   padding: " 10px",
                   borderRadius: "15px",
@@ -101,14 +108,16 @@ export default function MyCredits() {
                 {" "}
                 <option value="10">$10</option>
                 <option value="20">$20</option>
-                <option value="30">$50</option>
+                <option value="30">$30</option>
               </select>
 
               <Checkout amount={amount} />
             </div>
           </div>
         </div>
+        {/*
         <div
+          className="my-credits-usage"
           style={{
             borderRadius: "15px",
             padding: "36px",
@@ -118,6 +127,7 @@ export default function MyCredits() {
             marginTop: "8vh",
           }}
         >
+          
           <h2
             style={{
               fontSize: "44px",
@@ -126,8 +136,8 @@ export default function MyCredits() {
             Usage Summary
           </h2>
           <div style={{ marginBottom: "20px" }}>
-            <h3>14 Transcriptions</h3>
-            <h3>209 Questions</h3>
+            <h3>- Transcriptions</h3>
+            <h3>- Questions</h3>
           </div>
 
           <h2
@@ -151,6 +161,7 @@ export default function MyCredits() {
             <h3>Charge</h3>
           </div>
         </div>
+          */}
       </div>
     </>
   );

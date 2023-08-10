@@ -64,6 +64,12 @@
   .desktop {
     display: none;
   }
+  .mobile-menu-icon {
+    margin-right: 12px;
+  }
+  .index-navbar-get-started {
+    font-size: 24px !important;
+  }
 }
 .nav-link:focus,
 .nav-link:active {
