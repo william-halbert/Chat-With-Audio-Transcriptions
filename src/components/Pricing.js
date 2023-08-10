@@ -43,8 +43,7 @@ export default function Pricing() {
             className="pricing-li"
             style={{ fontSize: "28px", marginTop: "4px" }}
           >
-            For example, a 40-minute lecture with 5 questions would be $1 worth
-            of credits
+            1,000 tokens is about 750 words
           </li>
         </ul>
       </div>

@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import {
   setDoc,
@@ -40,6 +41,9 @@ export function AuthProvider({ children }) {
       );
       if (user) {
         await createUser(user.uid, email);
+        await sendEmailVerification(user).then(
+          console.log("sent email verification")
+        );
       }
     } catch (err) {
       return err.message;
@@ -55,6 +59,18 @@ export function AuthProvider({ children }) {
     } catch (err) {
       return err.message;
     }
+
+    return "success";
+  }
+  async function verifyEmail(user) {
+    try {
+      await sendEmailVerification(user).then(
+        console.log("sent email verification")
+      );
+    } catch (err) {
+      return err.message;
+    }
+
     return "success";
   }
 
@@ -164,6 +180,41 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function saveTranscribing(uid, chatId, transcribing) {
+    try {
+      await setDoc(
+        doc(db, "users", uid, "foldersAndChats", chatId),
+        {
+          transcribing: transcribing,
+        },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error("Error saving conversation to Firestore: ", error);
+    }
+  }
+  async function saveProgress(
+    uid,
+    chatId,
+    audioDuration,
+    audioName,
+    startTime
+  ) {
+    try {
+      await setDoc(
+        doc(db, "users", uid, "foldersAndChats", chatId),
+        {
+          audioDuration: audioDuration,
+          audioName: audioName,
+          startTime: startTime,
+        },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error("Error saving conversation to Firestore: ", error);
+    }
+  }
+
   async function removeCredits(uid, amount) {
     try {
       const userDocRef = doc(db, "users", uid);
@@ -248,6 +299,7 @@ export function AuthProvider({ children }) {
       itemId: String(itemId),
       status: "Live",
       isOpen: true,
+      transcribing: "No",
     };
     try {
       const docRef = await setDoc(
@@ -314,6 +366,9 @@ export function AuthProvider({ children }) {
     removeCredits,
     getUser,
     saveFolderIsOpen,
+    saveTranscribing,
+    saveProgress,
+    verifyEmail,
   };
 
   return (

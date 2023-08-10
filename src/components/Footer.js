@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/logoWhite.png";
 import "font-awesome/css/font-awesome.min.css";
+import "./Footer.css";
 
 export default function Footer() {
   const styles = {
@@ -44,7 +45,12 @@ export default function Footer() {
   return (
     <footer style={styles.footerContainer}>
       <div style={styles.footerLeft}>
-        <img src={Logo} alt="AudioChat.ai Logo" style={styles.footerLogo} />
+        <img
+          className="footer-logo"
+          src={Logo}
+          alt="AudioChat.ai Logo"
+          style={styles.footerLogo}
+        />
         <div style={{ padding: "0 12px" }}>
           <a
             href="https://www.instagram.com/audiochat_ai/"
@@ -59,10 +65,18 @@ export default function Footer() {
         </div>
       </div>
       <div style={styles.footerRight}>
-        <Link to="/privacy-policy" style={styles.footerLink}>
+        <Link
+          className="footer-link"
+          to="/privacy-policy"
+          style={styles.footerLink}
+        >
           Privacy Policy
         </Link>
-        <Link to="/terms-and-conditions" style={styles.footerLink}>
+        <Link
+          className="footer-link"
+          to="/terms-and-conditions"
+          style={styles.footerLink}
+        >
           Terms and Conditions
         </Link>
       </div>

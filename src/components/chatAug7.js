@@ -47,6 +47,8 @@ import robotImg from "../images/gpt.png";
 function AudioToText() {
   //useState
   const Navigate = useNavigate();
+  const [showVerifyModal, setShowVerifyModal] = useState();
+  const [audioName, setAudioName] = useState();
   const [showSelectBoxes, setShowSelectBoxes] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -69,7 +71,7 @@ function AudioToText() {
   const [date, setDate] = useState("");
   const [deletedItems, setDeletedItems] = useState([]);
   const [audioFileDetails, setAudioFileDetails] = useState(null);
-  const [transcribing, setTranscribing] = useState("No");
+  const [transcribing, setTranscribing] = useState("");
   const [transcriptionProgress, setTranscriptionProgress] = useState(0);
   const [showTranscriptText, setShowTranscriptText] = useState("Transcript");
   const [showSidebar, setShowSidebar] = useState(null);
@@ -89,6 +91,9 @@ function AudioToText() {
     getUser,
     logout,
     saveFolderIsOpen,
+    saveTranscribing,
+    saveProgress,
+    verifyEmail,
   } = useAuth();
   const [chatId, setChatId] = useState();
   const [conversation, setConversation] = useState([]);
@@ -119,7 +124,6 @@ function AudioToText() {
   }
   function handleShowSidebar(e) {
     e.preventDefault();
-    console.log("handleShowSidebar");
     setShowSidebar(true);
   }
   function handleHideSidebar() {
@@ -146,10 +150,10 @@ function AudioToText() {
 
     if (files && files.length > 0) {
       const audioFile = files[0];
-      console.log(audioFile);
       const audioURL = URL.createObjectURL(audioFile);
       setAudio(audioURL);
       setAudioFileDetails(audioFile);
+      setAudioName();
 
       let audioElem = new Audio();
       audioElem.src = audioURL;
@@ -161,10 +165,12 @@ function AudioToText() {
       console.error("No files found in the drop event");
     }
   }
-
+  console.log("is verified?", user.emailVerified);
+  const handleVerify = () => {
+    verifyEmail(user);
+  };
   useEffect(() => {
     getUser(user.uid).then((userData) => {
-      console.log(userData);
       if (userData && userData.credits) {
         setCredits(userData.credits);
         console.log("Set Credits to ", userData.credits / 100);
@@ -192,33 +198,13 @@ function AudioToText() {
 
   const toggleSelectedItem = (item) => {
     let strItem = String(item);
-    console.log(strItem);
     if (selectedItems.includes(strItem)) {
       setSelectedItems((prevItems) => prevItems.filter((i) => i !== strItem));
     } else {
       setSelectedItems((prevItems) => [...prevItems, strItem]);
     }
   };
-  /*
-  useEffect(async () => {
-    if (transcript) {
-      // or some other condition to ensure transcript is set
-      const chatData = await getChat(user.uid, String(chatId));
-      if (transcriptSummary) {
-        setTranscriptSummary(chatData.transcriptSummary);
-      } else {
-        try {
-          openaiRequest(chatData.transcript, "Transcript");
-        } catch (e) {
-          console.err(e);
-        }
-      }
-    }
-  }, [transcript]);*/
 
-  useEffect(() => {
-    console.log(selectedItems);
-  }, [selectedItems]);
   const [chatData, setChataData] = useState();
   const fetchChat = async (chatId) => {
     try {
@@ -262,24 +248,66 @@ function AudioToText() {
         ", " +
         dateObj.getFullYear();
       setDate(dateText);
-      console.log(conversation);
+      setTranscribing(chatData.transcribing);
       if (chatData.transcript) {
         setTranscribing("Done");
         if (chatData.transcriptSummary) {
           setTranscriptSummary(chatData.transcriptSummary);
         }
         setTranscript(chatData.transcript);
+      } else if (chatData.transcribing == "Loading") {
+        setTranscriptionProgress(0);
+        setTranscribing("Loading");
+        const startTime = new Date(
+          chatData.startTime.seconds * 1000 +
+            chatData.startTime.nanoseconds / 1000000
+        );
+        const currentTime = new Date();
+        console.log("Current time:", currentTime);
+        console.log("Start time:", startTime);
+        console.log("Audio Duration (min):", chatData.audioDuration);
+        let progress =
+          (((currentTime - startTime) * 2.8) /
+            (chatData.audioDuration * 1000 * 60)) *
+          100;
+
+        if (progress > 100) {
+          progress = 100;
+        }
+        console.log("progress", progress);
+        setTranscriptionProgress(progress);
+        const interval = setInterval(() => {
+          setTranscriptionProgress((prevProgress) => {
+            const incrementPerSecond =
+              100 / (chatData.audioDuration * 2.8 * 60);
+            if (prevProgress < 100) {
+              const newProgress = prevProgress + incrementPerSecond;
+              return newProgress > 100 ? 100 : newProgress;
+            } else {
+              clearInterval(interval);
+              return 100;
+            }
+          });
+        }, 1000);
+        setAudioName(chatData.audioName);
+        setAudioDuration(chatData.audioDuration);
       } else {
         setTranscript("");
         setTranscriptSummary("");
         setTranscribing("No");
       }
+      console.log("transcribing", transcribing);
     } catch (error) {
       console.error("Failed to fetch chat data:", error);
     }
   };
 
   useEffect(() => {
+    if (user.emailVerified) {
+      setShowVerifyModal(false);
+    } else {
+      setShowVerifyModal(true);
+    }
     setItems([]);
     setDeletedItems([]);
     const fetchData = async () => {
@@ -445,7 +473,6 @@ function AudioToText() {
       });
 
       if (type == "Transcript") {
-        console.log(response.data.choices[0].message.content);
         setTranscriptSummary(response.data.choices[0].message.content);
         saveTranscriptSummary(
           String(user.uid),
@@ -455,14 +482,7 @@ function AudioToText() {
         const inputTokens = response.data.usage.prompt_tokens;
         const outputTokens = response.data.usage.completion_tokens;
         const cost = (inputTokens * 0.3) / 1000 + (outputTokens * 0.4) / 1000;
-        console.log(
-          "inputTokens",
-          inputTokens,
-          "outputTokens",
-          outputTokens,
-          "cost",
-          cost
-        );
+
         removeCredits(user.uid, cost);
         setCredits(credits - cost);
         setConversation([
@@ -483,14 +503,7 @@ function AudioToText() {
         const inputTokens = response.data.usage.prompt_tokens;
         const outputTokens = response.data.usage.completion_tokens;
         const cost = (inputTokens * 0.5) / 1000 + (outputTokens * 0.7) / 1000;
-        console.log(
-          "inputTokens",
-          inputTokens,
-          "outputTokens",
-          outputTokens,
-          "cost",
-          cost
-        );
+
         removeCredits(user.uid, cost);
         setCredits(credits - cost);
       }
@@ -520,8 +533,8 @@ function AudioToText() {
   const onAudioSubmit = async (event) => {
     // Get the file from the event
     console.log("Started onAudioSubmit");
-    console.log("event.target:", event.target);
-    console.log("event.target.elements:", event.target.elements);
+    setTranscriptionProgress(0);
+
     if (
       event.target.elements.audio.files &&
       event.target.elements.audio.files.length > 0
@@ -540,8 +553,16 @@ function AudioToText() {
         const audioFile = event.target.elements.audio.files[0];
         setAudio(URL.createObjectURL(audioFile));
         setAudioFileDetails(audioFile);
-
+        setAudioName(event.target.elements.audio.files[0].name);
         setTranscribing("Loading");
+        saveTranscribing(String(user.uid), String(chatId), "Loading");
+        saveProgress(
+          String(user.uid),
+          String(chatId),
+          audioDuration,
+          event.target.elements.audio.files[0].name,
+          new Date()
+        );
 
         const interval = setInterval(() => {
           setTranscriptionProgress((prevProgress) => {
@@ -556,7 +577,6 @@ function AudioToText() {
           });
         }, 1000);
 
-        console.log(audioFileDetails.type);
         const formData = new FormData();
         formData.append("audio", audioFile);
         formData.append("userId", user.uid);
@@ -564,7 +584,6 @@ function AudioToText() {
 
         let response;
         let result;
-        console.log("chatId", chatId);
 
         let removeAmount = Math.floor(audioDuration * 2);
         console.log("removeAmount", removeAmount);
@@ -584,9 +603,9 @@ function AudioToText() {
           result = await response.json();
           setTranscript(result.transcript);
           //saveTranscript(user.uid, String(chatId), result);
-          console.log(transcript);
 
           setTranscribing("Done");
+          saveTranscribing(String(user.uid), String(chatId), "Done");
           setTranscriptionProgress(0);
         } else {
           console.error(
@@ -602,7 +621,6 @@ function AudioToText() {
     setMessageError("");
     event.preventDefault();
     if (credits - 10 > 0) {
-      console.log("message: ", message);
       saveChat(String(user.uid), String(chatId), conversation);
       const openAiResponse = await openaiRequest(message, "Chat");
       saveChat(String(user.uid), String(chatId), conversation);
@@ -624,12 +642,6 @@ function AudioToText() {
     }
   }
 
-  console.log(
-    "showSidebar",
-    showSidebar,
-    "window.innerWidth",
-    window.innerWidth
-  );
   return (
     <div>
       {/*modal Are you sure? */}
@@ -668,7 +680,31 @@ function AudioToText() {
           </Button>
         </Modal.Footer>
       </Modal>
-
+      {/* verify email modal */}
+      <Modal
+        show={showVerifyModal}
+        onHide={() => console.log("")}
+        className="modal-lg"
+      >
+        <Modal.Header closeButton className="no-focus transcript-header">
+          <Modal.Title>Please Verify Your Email</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>To continue using the app, you need to verify your email.</p>
+          <p>
+            We have sent a verification link to your email address. Please check
+            your inbox and click on the link to verify.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeTranscript}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleVerify}>
+            Resend Verification Link
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/*modal to create Transcripts */}
       <Modal
         show={showTranscript}
@@ -794,7 +830,7 @@ function AudioToText() {
                 {audioFileDetails && (
                   <div style={{ marginTop: "15px", textAlign: "center" }}>
                     <p style={{ margin: "0 0 0 0" }}>
-                      <strong>File Name: </strong> {audioFileDetails.name}
+                      <strong>File Name: </strong> {audioName}
                     </p>
                     {audioDuration && (
                       <p style={{ margin: "6px 0 0 0" }}>
@@ -815,7 +851,7 @@ function AudioToText() {
                 <Alert variant="success">{transcriptSuccess}</Alert>
               )}
               <p>
-                <strong>File Name: </strong> {audioFileDetails.name}
+                <strong>File Name: </strong> {audioName}
               </p>
               <div
                 style={{
@@ -1647,7 +1683,6 @@ function Chat({
   }));
   const [editingName, setEditingName] = useState(false);
   const [currentName, setCurrentName] = useState(name);
-  console.log(chatId, overallChatId);
   return (
     <ListGroup.Item
       ref={drag}
@@ -1656,7 +1691,6 @@ function Chat({
       onClick={() => {
         handleHideSidebar();
         setChatId(chatId);
-        console.log(chatId);
       }}
       style={{
         paddingLeft: !parentId

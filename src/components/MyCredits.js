@@ -8,7 +8,7 @@ import { getDatabase } from "firebase/database";
 import "./MyCredits.css";
 
 export default function MyCredits() {
-  const [amount, setAmount] = useState(5);
+  const [amount, setAmount] = useState(10);
   const [credits, setCredits] = useState(null);
 
   const { getUser } = useAuth();

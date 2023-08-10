@@ -400,9 +400,17 @@ function Signup(props) {
   const passwordConfirmationRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signup, authError } = useAuth();
+  const { signup, authError, verifyEmail } = useAuth();
   const navigate = useNavigate();
   const [confirmedTerms, setConfirmedTerms] = useState(false);
+  const handleVerify = () => {
+    try {
+      console.log("willhalbert16@gmail.com");
+    } catch (e) {
+      console.log(e);
+    }
+    verifyEmail("willhalbert16@gmail.com");
+  };
   async function handleSignUp(e) {
     e.preventDefault();
     if (!confirmedTerms) {
@@ -441,6 +449,7 @@ function Signup(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
+          <Button onClick={handleVerify}>Verify Email</Button>
         </Modal.Header>
 
         <Modal.Body>
