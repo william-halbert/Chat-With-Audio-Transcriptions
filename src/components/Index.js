@@ -174,6 +174,7 @@ export default function Index() {
             autoPlay
             loop
             muted
+            playsinline
           />
           <video
             className="demo-mobile"
@@ -186,6 +187,7 @@ export default function Index() {
             autoPlay
             loop
             muted
+            playsinline
           />
         </section>
         {/* 2nd demo section */}
@@ -225,6 +227,7 @@ export default function Index() {
               boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
             }}
             autoPlay
+            playsinline
             loop
             muted
           />
@@ -238,6 +241,7 @@ export default function Index() {
             }}
             autoPlay
             loop
+            playsinline
             muted
           />
         </section>
@@ -275,6 +279,7 @@ export default function Index() {
               autoPlay
               loop
               muted
+              playsinline
             />
             <video
               className="demo3-vid"
@@ -286,6 +291,7 @@ export default function Index() {
               }}
               autoPlay
               loop
+              playsinline
               muted
             />
           </div>
