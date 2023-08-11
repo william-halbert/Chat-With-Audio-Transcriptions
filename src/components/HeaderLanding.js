@@ -230,6 +230,7 @@ function Login(props) {
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -246,7 +247,7 @@ function Login(props) {
       if (response != "success") {
         return setError(response);
       } else {
-        setShowLoginModal(false);
+        setSuccess("You're logged in!");
       }
     } catch (err) {
       console.log(err);
@@ -268,6 +269,7 @@ function Login(props) {
         </Modal.Header>
         <Modal.Body>
           {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleLogin}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -320,10 +322,20 @@ function Signup(props) {
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const [loading, setLoading] = useState(false);
-  const { signup, authError } = useAuth();
+  const { signup, authError, verifyEmail } = useAuth();
   const navigate = useNavigate();
   const [confirmedTerms, setConfirmedTerms] = useState(false);
+  const handleVerify = () => {
+    try {
+      console.log("willhalbert16@gmail.com");
+    } catch (e) {
+      console.log(e);
+    }
+    verifyEmail("willhalbert16@gmail.com");
+  };
   async function handleSignUp(e) {
     e.preventDefault();
     if (!confirmedTerms) {
@@ -342,6 +354,9 @@ function Signup(props) {
       if (response != "success") {
         return setError(response);
       } else {
+        return setSuccess(
+          "You're signed up! Check your email in a few minutes for a verification link"
+        );
         setShowSignupModal(false);
       }
     } catch (err) {
@@ -366,6 +381,7 @@ function Signup(props) {
 
         <Modal.Body>
           {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSignUp}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>

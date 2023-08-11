@@ -315,7 +315,7 @@ export function AuthProvider({ children }) {
     const docData = {
       userId: String(uid),
       createdDate: Timestamp.fromDate(new Date()),
-      credits: 0,
+      credits: 50,
       email: email,
     };
     try {

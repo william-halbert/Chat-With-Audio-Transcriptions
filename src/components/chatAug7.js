@@ -75,6 +75,8 @@ function AudioToText() {
   const [transcriptionProgress, setTranscriptionProgress] = useState(0);
   const [showTranscriptText, setShowTranscriptText] = useState("Transcript");
   const [showSidebar, setShowSidebar] = useState(null);
+  const [transcribeRequestReceived, setTranscribeRequestReceived] =
+    useState("");
 
   const {
     createFoldersAndChats,
@@ -165,7 +167,6 @@ function AudioToText() {
       console.error("No files found in the drop event");
     }
   }
-  console.log("is verified?", user.emailVerified);
   const handleVerify = () => {
     verifyEmail(user);
   };
@@ -250,6 +251,7 @@ function AudioToText() {
       setDate(dateText);
       setTranscribing(chatData.transcribing);
       if (chatData.transcript) {
+        setTranscriptError("");
         setTranscribing("Done");
         if (chatData.transcriptSummary) {
           setTranscriptSummary(chatData.transcriptSummary);
@@ -258,6 +260,7 @@ function AudioToText() {
       } else if (chatData.transcribing == "Loading") {
         setTranscriptionProgress(0);
         setTranscribing("Loading");
+        setTranscriptError("");
         const startTime = new Date(
           chatData.startTime.seconds * 1000 +
             chatData.startTime.nanoseconds / 1000000
@@ -274,12 +277,13 @@ function AudioToText() {
         if (progress > 100) {
           progress = 100;
         }
-        console.log("progress", progress);
+        console.log("progress reset", progress);
+        console.log("audioduration reset", chatData.audioDuration);
         setTranscriptionProgress(progress);
         const interval = setInterval(() => {
           setTranscriptionProgress((prevProgress) => {
             const incrementPerSecond =
-              100 / (chatData.audioDuration * 2.8 * 60);
+              100 / ((chatData.audioDuration / 3) * 60);
             if (prevProgress < 100) {
               const newProgress = prevProgress + incrementPerSecond;
               return newProgress > 100 ? 100 : newProgress;
@@ -385,7 +389,25 @@ function AudioToText() {
 
   useEffect(() => {
     fetchChat(chatId);
+    setTranscriptError("");
+    setMessageError("");
   }, [chatId]);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (transcribing === "Loading") {
+      intervalId = setInterval(() => {
+        fetchChat(chatId);
+      }, 5000);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [transcribing]);
 
   //create new folder or chat
   const createNewItem = async (type) => {
@@ -485,12 +507,13 @@ function AudioToText() {
 
         removeCredits(user.uid, cost);
         setCredits(credits - cost);
-        setConversation([
+        setConversation((prevConversation) => [
           {
             role: "user",
             content: `Summarize: ${transcript}`,
           },
           { role: "system", content: response.data.choices[0].message.content },
+          ...prevConversation,
         ]);
       } else {
         setConversation([
@@ -549,71 +572,84 @@ function AudioToText() {
           "Transcribed files can be a maximum of 60 minutes."
         );
       }
-      if (credits - Math.floor(audioDuration * 2) >= 0) {
-        const audioFile = event.target.elements.audio.files[0];
-        setAudio(URL.createObjectURL(audioFile));
-        setAudioFileDetails(audioFile);
-        setAudioName(event.target.elements.audio.files[0].name);
-        setTranscribing("Loading");
-        saveTranscribing(String(user.uid), String(chatId), "Loading");
-        saveProgress(
-          String(user.uid),
-          String(chatId),
-          audioDuration,
-          event.target.elements.audio.files[0].name,
-          new Date()
-        );
 
-        const interval = setInterval(() => {
-          setTranscriptionProgress((prevProgress) => {
-            const incrementPerSecond = 100 / ((audioDuration / 3) * 60);
-            if (prevProgress < 100) {
-              const newProgress = prevProgress + incrementPerSecond;
-              return newProgress > 100 ? 100 : newProgress;
-            } else {
-              clearInterval(interval);
-              return 100;
-            }
-          });
-        }, 1000);
+      const audioFile = event.target.elements.audio.files[0];
+      setAudio(URL.createObjectURL(audioFile));
+      setAudioFileDetails(audioFile);
+      setAudioName(event.target.elements.audio.files[0].name);
+      setTranscribing("Loading");
+      setTranscriptError(
+        "Wait for the transcription to successfully start in the backend"
+      );
+      saveTranscribing(String(user.uid), String(chatId), "Loading");
+      saveProgress(
+        String(user.uid),
+        String(chatId),
+        audioDuration,
+        event.target.elements.audio.files[0].name,
+        new Date()
+      );
+      console.log("audioduration", audioDuration);
+      const interval = setInterval(() => {
+        setTranscriptionProgress((prevProgress) => {
+          const incrementPerSecond = 100 / ((audioDuration / 3) * 60);
+          if (prevProgress < 100) {
+            const newProgress = prevProgress + incrementPerSecond;
+            return newProgress > 100 ? 100 : newProgress;
+          } else {
+            clearInterval(interval);
+            return 100;
+          }
+        });
+      }, 1000);
 
-        const formData = new FormData();
-        formData.append("audio", audioFile);
-        formData.append("userId", user.uid);
-        formData.append("chatId", chatId);
+      const formData = new FormData();
+      formData.append("audio", audioFile);
+      formData.append("userId", user.uid);
+      formData.append("chatId", chatId);
 
-        let response;
-        let result;
+      let response;
+      let result;
 
-        let removeAmount = Math.floor(audioDuration * 2);
-        console.log("removeAmount", removeAmount);
-        removeCredits(user.uid, removeAmount);
-        setCredits(credits - removeAmount);
-        try {
-          console.log("Server URL:", process.env.REACT_APP_SERVER);
-          response = await fetch(`${process.env.REACT_APP_SERVER}/transcribe`, {
-            method: "POST",
-            body: formData,
-          });
-        } catch (error) {
-          console.error("Error while fetching transcription:", error);
-        }
-
-        if (response && response.ok) {
-          result = await response.json();
-          setTranscript(result.transcript);
-          //saveTranscript(user.uid, String(chatId), result);
-
-          setTranscribing("Done");
-          saveTranscribing(String(user.uid), String(chatId), "Done");
-          setTranscriptionProgress(0);
-        } else {
-          console.error(
-            "Error:",
-            response ? response.statusText : "No response from server"
-          );
-        }
+      let removeAmount = Math.floor(audioDuration * 2);
+      console.log("removeAmount", removeAmount);
+      removeCredits(user.uid, removeAmount);
+      setCredits(credits - removeAmount);
+      try {
+        console.log("Server URL:", process.env.REACT_APP_SERVER);
+        response = await fetch(`${process.env.REACT_APP_SERVER}/transcribe`, {
+          method: "POST",
+          body: formData,
+        });
+      } catch (error) {
+        console.error("Error while fetching transcription:", error);
       }
+      try {
+        result = await response.json();
+        if ((result.message = "Started")) {
+          setTranscribeRequestReceived(
+            "It's been sent and will process and load in due time."
+          );
+          setTranscriptError("");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      /*
+      if (response && response.ok) {
+        result = await response.json();
+        setTranscript(result.transcript);
+        //saveTranscript(user.uid, String(chatId), result);
+
+        setTranscribing("Done");
+        saveTranscribing(String(user.uid), String(chatId), "Done");
+        setTranscriptionProgress(0);
+      } else {
+        console.error(
+          "Error:",
+          response ? response.statusText : "No response from server"
+        );
+      }*/
     }
   };
 
@@ -695,6 +731,7 @@ function AudioToText() {
             We have sent a verification link to your email address. Please check
             your inbox and click on the link to verify.
           </p>
+          <p>Refresh the page if you just verified!</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeTranscript}>
@@ -784,7 +821,7 @@ function AudioToText() {
                       const audioURL = URL.createObjectURL(audioFile);
                       setAudio(audioURL);
                       setAudioFileDetails(audioFile);
-
+                      setAudioName(e.target.files[0].name);
                       let audioElem = new Audio();
                       audioElem.src = audioURL;
                       audioElem.onloadedmetadata = () => {
@@ -808,10 +845,6 @@ function AudioToText() {
                     textAlign: "center",
                   }}
                   className="audio-input"
-                  onDragOver={handleDragOver}
-                  onDragEnter={handleDragEnter}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
                 >
                   <h4
                     style={{
@@ -845,10 +878,18 @@ function AudioToText() {
           ) : transcribing == "Loading" ? (
             <div style={{ textAlign: "center" }}>
               {transcriptError && (
-                <Alert variant="danger">{transcriptError}</Alert>
+                <Alert variant="warning">
+                  <Spinner
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  &nbsp;{transcriptError}
+                </Alert>
               )}
-              {transcriptSuccess && (
-                <Alert variant="success">{transcriptSuccess}</Alert>
+              {transcribeRequestReceived && (
+                <Alert variant="success">{transcribeRequestReceived}</Alert>
               )}
               <p>
                 <strong>File Name: </strong> {audioName}
