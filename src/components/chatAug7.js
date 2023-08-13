@@ -1439,7 +1439,7 @@ function AudioToText() {
                     textAreaRef.current.style.height = "38px";
                   }}
                   style={{
-                    margin: "0 12px 36px 12px",
+                    margin: "0 18px 36px 0",
 
                     borderRadius: "8px",
 
