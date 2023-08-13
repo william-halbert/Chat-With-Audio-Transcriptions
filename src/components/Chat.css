@@ -116,7 +116,8 @@
   }
   .message-input {
     min-width: 70vw !important;
-    border: 1px solid rgb(0, 123, 255);
+    border: 1px solid rgb(0, 123, 255) !important;
+    background: rgba(0, 123, 255, 0.5) !important;
   }
   .send-message {
     width: 100vw !important;
