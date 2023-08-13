@@ -678,6 +678,8 @@ function AudioToText() {
     }
   }
 
+  const textAreaRef = useRef(null);
+
   return (
     <div>
       {/*modal Are you sure? */}
@@ -1389,6 +1391,7 @@ function AudioToText() {
                 }}
               >
                 <textarea
+                  ref={textAreaRef}
                   name="message"
                   placeholder="Type your message here"
                   value={message}
@@ -1427,6 +1430,24 @@ function AudioToText() {
                   }}
                   className="message-input"
                 ></textarea>
+                <Button
+                  className="mobile"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    sendMessage(e);
+                    setMessage("");
+                    textAreaRef.current.style.height = "38px";
+                  }}
+                  style={{
+                    margin: "0 12px 36px 12px",
+
+                    borderRadius: "8px",
+
+                    height: "38px",
+                  }}
+                >
+                  Send
+                </Button>
               </form>
             </div>
           </div>
