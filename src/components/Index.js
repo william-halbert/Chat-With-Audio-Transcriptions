@@ -310,7 +310,7 @@ export default function Index() {
           </h3>
           <img
             className="demo-mobile"
-            src={summaryMob}
+            src={uploadMob}
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
