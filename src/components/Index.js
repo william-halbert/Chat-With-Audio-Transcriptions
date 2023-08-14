@@ -166,8 +166,7 @@ export default function Index() {
               maxWidth: "90vw",
             }}
           >
-            Add your classes and lectures, get the transcript and summary, ask
-            any questions
+            Get the transcript, get the summary, ask questions
           </h3>
 
           <video
