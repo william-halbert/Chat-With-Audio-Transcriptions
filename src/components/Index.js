@@ -5,6 +5,12 @@ import demoVideo from "../images/transcribePt2.mov";
 import demo2Mobile from "../images/demo2Mobile.mov";
 import demo1Mobile from "../images/demo1Mobile.mov";
 
+import foldersMob from "../images/folders.jpeg";
+import summaryMob from "../images/summary.jpeg";
+import chatMob from "../images/chat.jpeg";
+import uploadMob from "../images/upload.jpeg";
+import transcriptMob from "../images/transcript.jpeg";
+
 import spelling from "../images/spelling.mov";
 import folders from "../images/folders.mov";
 import "./Index.css";
@@ -151,7 +157,7 @@ export default function Index() {
             Students
           </h2>
           <h3
-            className="demo-h3"
+            className="demo-h3 desktop"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -163,6 +169,7 @@ export default function Index() {
             Add your classes and lectures, get the transcript and summary, ask
             any questions
           </h3>
+
           <video
             className="demo-desktop"
             src={demoVideo}
@@ -176,22 +183,79 @@ export default function Index() {
             muted
             playsinline
           />
-          <video
-            className="demo-mobile"
-            src={demo2Mobile}
-            style={{
-              maxWidth: "70vw",
-              borderRadius: "15px",
-              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
-            }}
-            autoPlay
-            loop
-            muted
-            playsinline
-          />
+          <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
+            <h3
+              className="demo-h3 mobile"
+              style={{
+                fontSize: "30px",
+                alignSelf: "start",
+                marginLeft: "0vw",
+                marginBottom: "0",
+                maxWidth: "90vw",
+              }}
+            >
+              Get the tanscript
+            </h3>
+            <img
+              className="demo-mobile"
+              src={transcriptMob}
+              style={{
+                maxWidth: "70vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              }}
+            />
+            <h3
+              className="demo-h3 mobile"
+              style={{
+                fontSize: "30px",
+                alignSelf: "start",
+                marginLeft: "0vw",
+                marginBottom: "0",
+                maxWidth: "90vw",
+              }}
+            >
+              Get the summary
+            </h3>
+            <img
+              className="demo-mobile mobile"
+              src={summaryMob}
+              style={{
+                marginTop: "0",
+                maxWidth: "70vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              }}
+            />
+            <h3
+              className="demo-h3 mobile"
+              style={{
+                fontSize: "30px",
+                alignSelf: "start",
+                marginLeft: "0vw",
+                marginBottom: "0",
+                marginTop: "0",
+                maxWidth: "90vw",
+              }}
+            >
+              Chat with the context
+            </h3>
+            <img
+              className="demo-mobile mobile"
+              src={chatMob}
+              style={{
+                marginTop: "0",
+                maxWidth: "70vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                marginBottom: "0",
+              }}
+            />
+          </div>
         </section>
         {/* 2nd demo section */}
         <section
+          className="demo-section-mobile"
           style={{
             marginTop: "5vh",
             display: "flex",
@@ -207,7 +271,7 @@ export default function Index() {
             }}
           ></h2>
           <h3
-            className="demo-h3"
+            className="demo-h3 desktop"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -231,22 +295,32 @@ export default function Index() {
             loop
             muted
           />
-          <video
+          <h3
+            className="demo-h3 mobile"
+            style={{
+              fontSize: "30px",
+              alignSelf: "start",
+              marginTop: "2vh",
+              marginLeft: "5vw",
+              marginBottom: "2vh",
+              maxWidth: "90vw",
+            }}
+          >
+            Upload the audio file from voice memos
+          </h3>
+          <img
             className="demo-mobile"
-            src={demo1Mobile}
+            src={summaryMob}
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
               boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
             }}
-            autoPlay
-            loop
-            playsinline
-            muted
           />
         </section>
         {/* 3rd demo section */}
         <section
+          className="demo-section-mobile"
           style={{
             marginTop: "5vh",
             display: "flex",
@@ -255,7 +329,7 @@ export default function Index() {
           }}
         >
           <h3
-            className="demo-h3"
+            className="demo-h3 desktop"
             style={{
               fontSize: "30px",
               alignSelf: "start",
@@ -268,8 +342,33 @@ export default function Index() {
             enter.
           </h3>
           <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
+            <h3
+              className="demo-h3 mobile"
+              style={{
+                fontSize: "30px",
+                alignSelf: "start",
+                marginTop: "2vh",
+                marginLeft: "5vw",
+                marginBottom: "0vh",
+                maxWidth: "90vw",
+              }}
+            >
+              Chats can be intuitively organized
+            </h3>
+            <img
+              className="mobile"
+              src={foldersMob}
+              style={{
+                marginTop: "0",
+                maxWidth: "90vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                marginLeft: "5vw;",
+                alignSelf: "center",
+              }}
+            />
             <video
-              className="demo3-vid"
+              className="demo3-vid desktop"
               src={folders}
               style={{
                 width: "30vw",
@@ -282,7 +381,7 @@ export default function Index() {
               playsinline
             />
             <video
-              className="demo3-vid"
+              className="demo3-vid desktop"
               src={spelling}
               style={{
                 width: "30vw",

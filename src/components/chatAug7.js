@@ -280,10 +280,11 @@ function AudioToText() {
         console.log("progress reset", progress);
         console.log("audioduration reset", chatData.audioDuration);
         setTranscriptionProgress(progress);
+        /*
         const interval = setInterval(() => {
           setTranscriptionProgress((prevProgress) => {
             const incrementPerSecond =
-              100 / ((chatData.audioDuration / 3) * 60);
+              100 / ((chatData.audioDuration / 2.8) * 60);
             if (prevProgress < 100) {
               const newProgress = prevProgress + incrementPerSecond;
               return newProgress > 100 ? 100 : newProgress;
@@ -292,13 +293,23 @@ function AudioToText() {
               return 100;
             }
           });
-        }, 1000);
+        }, 1000);*/
         setAudioName(chatData.audioName);
         setAudioDuration(chatData.audioDuration);
       } else {
         setTranscript("");
         setTranscriptSummary("");
         setTranscribing("No");
+      }
+      if (transcribing == "Loading") {
+        if (
+          transcribeRequestReceived !=
+          "It's been sent and will process and load in due time."
+        ) {
+          setTranscriptError(
+            "Wait for the transcription to successfully start in the backend"
+          );
+        }
       }
       console.log("transcribing", transcribing);
     } catch (error) {
@@ -391,6 +402,20 @@ function AudioToText() {
     fetchChat(chatId);
     setTranscriptError("");
     setMessageError("");
+    if (transcribing == "Loading") {
+      const fetchInterval = setInterval(() => {
+        setTranscriptionProgress((prevProgress) => {
+          const incrementPerSecond = 100 / ((audioDuration / 2.8) * 60);
+          if (prevProgress < 100) {
+            const newProgress = prevProgress + incrementPerSecond;
+            return newProgress > 100 ? 100 : newProgress;
+          } else {
+            clearInterval(fetchInterval);
+            return 100;
+          }
+        });
+      }, 1000);
+    }
   }, [chatId]);
 
   useEffect(() => {
@@ -399,7 +424,7 @@ function AudioToText() {
     if (transcribing === "Loading") {
       intervalId = setInterval(() => {
         fetchChat(chatId);
-      }, 5000);
+      }, 20000);
     }
 
     return () => {
@@ -467,7 +492,24 @@ function AudioToText() {
       conversationToOpenai = [
         {
           role: "user",
-          content: `Please provide a structured summary of the following transcript using HTML. List out the main points using unordered list tags: ${transcript}`,
+          content: `
+          Please summarize the following transcript with these guidelines:
+          
+          1. Use HTML formatting suitable for a JSX environment.
+          2. For Main Points:
+             -  Use <h3> for the 'Main Points' header and include an unordered list for the main points underneath.
+          3. For STEM courses:
+             - Use <h3> for the 'Formulas' header and include any mentioned formulas as list items underneath.
+          4. If "homework" is mentioned:
+             - Use <h3> for the 'Homework' header and detail the homework assignments as list items underneath.
+          5. If any "projects" are discussed:
+             - Use <h3> for the 'Projects' header and detail the projects as list items underneath.
+          6. If any "tests" are announced:
+             - Use <h3> for the 'Tests' header and detail the tests as list items underneath.
+          7. Conclude with a general summary using <h3> for the 'Summary' header.
+          8. Provide links to learn more about the topics, preferably from YouTube, in a paragraph format.
+          
+          Transcript: ${transcript}`,
         },
       ];
     } else {
@@ -495,6 +537,7 @@ function AudioToText() {
       });
 
       if (type == "Transcript") {
+        console.log(response.data.choices[0].message.content);
         setTranscriptSummary(response.data.choices[0].message.content);
         saveTranscriptSummary(
           String(user.uid),
@@ -938,6 +981,7 @@ function AudioToText() {
               dangerouslySetInnerHTML={{
                 __html: transcriptSummary.replace(/\n/g, "<br />"),
               }}
+              className="transcript-summary"
             ></div>
           )}
         </Modal.Body>
