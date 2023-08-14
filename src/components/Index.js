@@ -348,7 +348,7 @@ export default function Index() {
                 fontSize: "30px",
                 alignSelf: "start",
                 marginTop: "2vh",
-                marginLeft: "5vw",
+                marginLeft: "0vw",
                 marginBottom: "0vh",
                 maxWidth: "90vw",
               }}
