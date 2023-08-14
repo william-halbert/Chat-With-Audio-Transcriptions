@@ -6,7 +6,9 @@
 .transcript-summary h1 {
   margin: 0 !important;
 }
-
+.mobile {
+  display: none !important;
+}
 .sidebar-plus:focus,
 .sidebar-edit:focus,
 .sidebar-share:focus,
@@ -132,5 +134,8 @@
   }
   .send-message {
     width: 100vw !important;
+  }
+  .mobile {
+    display: unset !important;
   }
 }

@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import Header from "./HeaderIndex";
 import HeroImg from "../images/transcribe.png";
 import demoVideo from "../images/transcribePt2.mov";
-import demo2Mobile from "../images/demo2Mobile.mov";
-import demo1Mobile from "../images/demo1Mobile.mov";
+import upload from "../images/upload.mov";
+import voiceMemo from "../images/voiceMemo.mov";
 
 import foldersMob from "../images/folders.jpeg";
 import summaryMob from "../images/summary.jpeg";
@@ -280,12 +280,26 @@ export default function Index() {
               maxWidth: "90vw",
             }}
           >
-            Record and upload lectures, come back when they're processed
+            Upload audio, voice memos is easy
           </h3>
           <video
             className="demo-desktop"
-            src={transcribePt1}
+            src={voiceMemo}
             style={{
+              maxWidth: "70vw",
+              borderRadius: "15px",
+              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+            }}
+            autoPlay
+            playsinline
+            loop
+            muted
+          />
+          <video
+            className="demo-desktop"
+            src={upload}
+            style={{
+              marginTop: "10vh",
               maxWidth: "70vw",
               borderRadius: "15px",
               boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
@@ -338,8 +352,8 @@ export default function Index() {
               maxWidth: "90vw",
             }}
           >
-            Easily manage folders and change names with a double-click and
-            enter.
+            Organize chats into folds with drag and drop. Double click, edit
+            names, and hit enter on the keyboard
           </h3>
           <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
             <h3
