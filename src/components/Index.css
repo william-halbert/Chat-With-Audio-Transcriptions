@@ -71,4 +71,7 @@
   .demo-section-mobile {
     margin-top: 0 !important;
   }
+  .desktop {
+    display: none !important;
+  }
 }

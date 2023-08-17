@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
 import Header from "./HeaderIndex";
 import HeroImg from "../images/transcribe.png";
-import demoVideo from "../images/transcribePt2.mov";
-import upload from "../images/upload.mov";
-import voiceMemo from "../images/voiceMemo.mov";
+import demoVideo from "../images/transcript.jpeg";
+import upload from "../images/dragFile.png";
+import voiceMemo from "../images/finderDesk.png";
+import transcriptDesk from "../images/transcriptDesk.png";
+import summaryDesk from "../images/summaryDesk.png";
+import chatDesk from "../images/chatDesk.png";
 
 import foldersMob from "../images/folders.jpeg";
 import summaryMob from "../images/summary.jpeg";
@@ -11,11 +14,9 @@ import chatMob from "../images/chat.jpeg";
 import uploadMob from "../images/upload.jpeg";
 import transcriptMob from "../images/transcript.jpeg";
 
-import spelling from "../images/spelling.mov";
-import folders from "../images/folders.mov";
+import spelling from "../images/deleteDesk.png";
+import folders from "../images/foldersDesk.png";
 import "./Index.css";
-
-import transcribePt1 from "../images/transcribePt1.mov";
 
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
@@ -32,6 +33,7 @@ export default function Index() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showForgotModal, setShowForgotModal] = useState(false);
+  const [demo, setDemo] = useState("Transcript");
 
   const demoSectionRef = useRef(null);
 
@@ -168,20 +170,101 @@ export default function Index() {
           >
             Get the transcript, get the summary, ask questions
           </h3>
-
-          <video
-            className="demo-desktop"
-            src={demoVideo}
+          <div
+            className="no-focus desktop"
             style={{
-              maxWidth: "70vw",
-              borderRadius: "15px",
-              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              display: "flex",
+              alignItems: "space-around",
+              justifyContent: "center",
+              background: "rgba(170,170,170,1)",
+              padding: "3px 5px",
+              gap: "5px",
+              borderRadius: "5px",
+              marginBottom: "2vh",
+              boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
             }}
-            autoPlay
-            loop
-            muted
-            playsinline
-          />
+          >
+            <Button
+              className="no-focus transcript-tab desktop"
+              style={{
+                background: "rgba(211,211,211,.0)",
+                border: "none",
+                background:
+                  demo == "Transcript"
+                    ? "rgba(110,110,110,1)"
+                    : "rgba(211,211,211,.0)",
+              }}
+              onClick={() => setDemo("Transcript")}
+            >
+              Transcript
+            </Button>
+            <Button
+              className="no-focus transcript-summary-tab desktop"
+              style={{
+                background:
+                  demo == "Summary"
+                    ? "rgba(110,110,110,1)"
+                    : "rgba(211,211,211,.0)",
+                border: "none",
+              }}
+              onClick={() => setDemo("Summary")}
+            >
+              Summary
+            </Button>
+            <Button
+              className="no-focus transcript-summary-tab desktop"
+              style={{
+                background:
+                  demo == "Chat"
+                    ? "rgba(110,110,110,1)"
+                    : "rgba(211,211,211,.0)",
+                border: "none",
+                width: "90px",
+              }}
+              onClick={() => setDemo("Chat")}
+            >
+              Chat
+            </Button>
+          </div>
+          {demo == "Transcript" ? (
+            <>
+              {" "}
+              <img
+                className="demo-desktop"
+                src={transcriptDesk}
+                style={{
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                }}
+              />
+            </>
+          ) : demo == "Summary" ? (
+            <>
+              <img
+                className="demo-desktop desktop"
+                src={summaryDesk}
+                style={{
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <img
+                className="demo-desktop desktop"
+                src={chatDesk}
+                style={{
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                }}
+              />
+            </>
+          )}
+
           <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
             <h3
               className="demo-h3 mobile"
@@ -201,7 +284,7 @@ export default function Index() {
               style={{
                 maxWidth: "70vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
               }}
             />
             <h3
@@ -223,7 +306,7 @@ export default function Index() {
                 marginTop: "0",
                 maxWidth: "70vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
               }}
             />
             <h3
@@ -246,7 +329,7 @@ export default function Index() {
                 marginTop: "0",
                 maxWidth: "70vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 marginBottom: "0",
               }}
             />
@@ -281,32 +364,24 @@ export default function Index() {
           >
             Upload audio, voice memos is easy
           </h3>
-          <video
+          <img
             className="demo-desktop"
             src={voiceMemo}
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
-              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
             }}
-            autoPlay
-            playsinline
-            loop
-            muted
           />
-          <video
+          <img
             className="demo-desktop"
             src={upload}
             style={{
               marginTop: "10vh",
               maxWidth: "70vw",
               borderRadius: "15px",
-              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
             }}
-            autoPlay
-            playsinline
-            loop
-            muted
           />
           <h3
             className="demo-h3 mobile"
@@ -327,7 +402,7 @@ export default function Index() {
             style={{
               maxWidth: "70vw",
               borderRadius: "15px",
-              boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
             }}
           />
         </section>
@@ -375,36 +450,28 @@ export default function Index() {
                 marginTop: "0",
                 maxWidth: "90vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 marginLeft: "5vw;",
                 alignSelf: "center",
               }}
             />
-            <video
+            <img
               className="demo3-vid desktop"
               src={folders}
               style={{
                 width: "30vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
               }}
-              autoPlay
-              loop
-              muted
-              playsinline
             />
-            <video
+            <img
               className="demo3-vid desktop"
               src={spelling}
               style={{
                 width: "30vw",
                 borderRadius: "15px",
-                boxShadow: "1px 1px 6px rgba(0,123,255, .8)",
+                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
               }}
-              autoPlay
-              loop
-              playsinline
-              muted
             />
           </div>
         </section>
