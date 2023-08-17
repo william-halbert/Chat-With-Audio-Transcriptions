@@ -150,6 +150,7 @@ export default function Index() {
           }}
         >
           <h2
+            className="demo-desktop"
             style={{
               fontSize: "42px",
               alignSelf: "start",
@@ -171,7 +172,7 @@ export default function Index() {
             Get the transcript, get the summary, ask questions
           </h3>
           <div
-            className="no-focus desktop"
+            className="no-focus "
             style={{
               display: "flex",
               alignItems: "space-around",
@@ -185,7 +186,7 @@ export default function Index() {
             }}
           >
             <Button
-              className="no-focus transcript-tab desktop"
+              className="no-focus transcript-tab "
               style={{
                 background: "rgba(211,211,211,.0)",
                 border: "none",
@@ -199,7 +200,7 @@ export default function Index() {
               Transcript
             </Button>
             <Button
-              className="no-focus transcript-summary-tab desktop"
+              className="no-focus transcript-summary-tab "
               style={{
                 background:
                   demo == "Summary"
@@ -212,7 +213,7 @@ export default function Index() {
               Summary
             </Button>
             <Button
-              className="no-focus transcript-summary-tab desktop"
+              className="no-focus transcript-summary-tab "
               style={{
                 background:
                   demo == "Chat"
@@ -238,6 +239,16 @@ export default function Index() {
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
               />
+              <img
+                className="demo-mobile"
+                src={transcriptMob}
+                style={{
+                  margin: "2vh 0",
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                }}
+              />
             </>
           ) : demo == "Summary" ? (
             <>
@@ -250,6 +261,16 @@ export default function Index() {
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
               />{" "}
+              <img
+                className="demo-mobile mobile"
+                src={summaryMob}
+                style={{
+                  margin: "2vh 0",
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                }}
+              />
             </>
           ) : (
             <>
@@ -262,78 +283,19 @@ export default function Index() {
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
               />
+              <img
+                className="demo-mobile mobile"
+                src={chatMob}
+                style={{
+                  margin: "2vh 0",
+                  maxWidth: "70vw",
+                  borderRadius: "15px",
+                  boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                  marginBottom: "0",
+                }}
+              />
             </>
           )}
-
-          <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
-            <h3
-              className="demo-h3 mobile"
-              style={{
-                fontSize: "30px",
-                alignSelf: "start",
-                marginLeft: "0vw",
-                marginBottom: "0",
-                maxWidth: "90vw",
-              }}
-            >
-              Get the tanscript
-            </h3>
-            <img
-              className="demo-mobile"
-              src={transcriptMob}
-              style={{
-                maxWidth: "70vw",
-                borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-              }}
-            />
-            <h3
-              className="demo-h3 mobile"
-              style={{
-                fontSize: "30px",
-                alignSelf: "start",
-                marginLeft: "0vw",
-                marginBottom: "0",
-                maxWidth: "90vw",
-              }}
-            >
-              Get the summary
-            </h3>
-            <img
-              className="demo-mobile mobile"
-              src={summaryMob}
-              style={{
-                marginTop: "0",
-                maxWidth: "70vw",
-                borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-              }}
-            />
-            <h3
-              className="demo-h3 mobile"
-              style={{
-                fontSize: "30px",
-                alignSelf: "start",
-                marginLeft: "0vw",
-                marginBottom: "0",
-                marginTop: "0",
-                maxWidth: "90vw",
-              }}
-            >
-              Chat with the context
-            </h3>
-            <img
-              className="demo-mobile mobile"
-              src={chatMob}
-              style={{
-                marginTop: "0",
-                maxWidth: "70vw",
-                borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-                marginBottom: "0",
-              }}
-            />
-          </div>
         </section>
         {/* 2nd demo section */}
         <section
@@ -394,7 +356,7 @@ export default function Index() {
               maxWidth: "90vw",
             }}
           >
-            Upload the audio file from voice memos
+            Upload from voice memos
           </h3>
           <img
             className="demo-mobile"
@@ -435,17 +397,17 @@ export default function Index() {
               style={{
                 fontSize: "30px",
                 alignSelf: "start",
-                marginTop: "2vh",
+                margin: "2vh 0",
                 marginLeft: "0vw",
                 marginBottom: "0vh",
                 maxWidth: "90vw",
               }}
             >
-              Chats can be intuitively organized
+              Organize chats inside folders
             </h3>
             <img
               className="mobile"
-              src={foldersMob}
+              src={folders}
               style={{
                 marginTop: "0",
                 maxWidth: "90vw",
