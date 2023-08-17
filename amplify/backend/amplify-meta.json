@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-audiochat-dev-131230-authRole",
+      "UnauthRoleArn": "arn:aws:iam::029730363991:role/amplify-audiochat-dev-131230-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::029730363991:role/amplify-audiochat-dev-131230-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-audiochat-dev-131230-deployment",
+      "UnauthRoleName": "amplify-audiochat-dev-131230-unauthRole",
+      "StackName": "amplify-audiochat-dev-131230",
+      "StackId": "arn:aws:cloudformation:us-east-1:029730363991:stack/amplify-audiochat-dev-131230/40a90d60-3d21-11ee-959c-0a2585f6765f",
+      "AmplifyAppId": "d3b9h6y14caxk7"
+    }
+  }
+}
