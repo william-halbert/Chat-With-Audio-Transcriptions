@@ -1,18 +1,18 @@
 import React, { useRef, useState } from "react";
 import Header from "./HeaderIndex";
 import HeroImg from "../images/transcribe.png";
-import demoVideo from "../images/transcript.jpeg";
 import upload from "../images/dragFile.png";
 import voiceMemo from "../images/finderDesk.png";
 import transcriptDesk from "../images/transcriptDesk.png";
 import summaryDesk from "../images/summaryDesk.png";
 import chatDesk from "../images/chatDesk.png";
 
-import foldersMob from "../images/folders.jpeg";
-import summaryMob from "../images/summary.jpeg";
-import chatMob from "../images/chat.jpeg";
+import summaryMob from "../images/summary.png";
+import chatMob from "../images/chat.png";
 import uploadMob from "../images/upload.jpeg";
-import transcriptMob from "../images/transcript.jpeg";
+import transcriptMob from "../images/transcript.png";
+import filesMob from "../images/filesMob.png";
+import filesMob2 from "../images/filesMob2.png";
 
 import spelling from "../images/deleteDesk.png";
 import folders from "../images/foldersDesk.png";
@@ -143,7 +143,7 @@ export default function Index() {
           className="demo1"
           ref={demoSectionRef}
           style={{
-            marginTop: "15vh",
+            marginTop: "10vh",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -152,27 +152,18 @@ export default function Index() {
           <h2
             className="demo-desktop"
             style={{
-              fontSize: "42px",
+              fontSize: "20px",
               alignSelf: "start",
               marginLeft: "5vw",
+              color: "white",
             }}
           >
-            Students
+            {" "}
+            hi
           </h2>
-          <h3
-            className="demo-h3 desktop"
-            style={{
-              fontSize: "30px",
-              alignSelf: "start",
-              marginLeft: "5vw",
-              marginBottom: "5vh",
-              maxWidth: "90vw",
-            }}
-          >
-            Get the transcript, get the summary, ask questions
-          </h3>
+
           <div
-            className="no-focus "
+            className="no-focus"
             style={{
               display: "flex",
               alignItems: "space-around",
@@ -181,7 +172,8 @@ export default function Index() {
               padding: "3px 5px",
               gap: "5px",
               borderRadius: "5px",
-              marginBottom: "2vh",
+              cursor: "pointer",
+              marginBottom: "5vh",
               boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
             }}
           >
@@ -190,6 +182,8 @@ export default function Index() {
               style={{
                 background: "rgba(211,211,211,.0)",
                 border: "none",
+                cursor: "pointer",
+
                 background:
                   demo == "Transcript"
                     ? "rgba(110,110,110,1)"
@@ -202,6 +196,8 @@ export default function Index() {
             <Button
               className="no-focus transcript-summary-tab "
               style={{
+                cursor: "pointer",
+
                 background:
                   demo == "Summary"
                     ? "rgba(110,110,110,1)"
@@ -215,6 +211,8 @@ export default function Index() {
             <Button
               className="no-focus transcript-summary-tab "
               style={{
+                cursor: "pointer",
+
                 background:
                   demo == "Chat"
                     ? "rgba(110,110,110,1)"
@@ -296,6 +294,7 @@ export default function Index() {
               />
             </>
           )}
+          <div className="desktop" style={{ marginBottom: "5vh" }}></div>
         </section>
         {/* 2nd demo section */}
         <section
@@ -317,56 +316,46 @@ export default function Index() {
           <h3
             className="demo-h3 desktop"
             style={{
-              fontSize: "30px",
-              alignSelf: "start",
-              marginLeft: "5vw",
+              fontSize: "42px",
+              alignSelf: "center",
               marginBottom: "5vh",
               maxWidth: "90vw",
             }}
           >
-            Upload audio, voice memos is easy
+            Upload with voice memos
           </h3>
-          <img
-            className="demo-desktop"
-            src={voiceMemo}
+          <div
+            className="desktop"
             style={{
-              maxWidth: "70vw",
-              borderRadius: "15px",
-              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-            }}
-          />
-          <img
-            className="demo-desktop"
-            src={upload}
-            style={{
-              marginTop: "10vh",
-              maxWidth: "70vw",
-              borderRadius: "15px",
-              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-            }}
-          />
-          <h3
-            className="demo-h3 mobile"
-            style={{
-              fontSize: "30px",
-              alignSelf: "start",
-              marginTop: "2vh",
-              marginLeft: "5vw",
-              marginBottom: "2vh",
-              maxWidth: "90vw",
+              display: "flex",
+              flexDirection: "row",
+              gap: "5vw",
+              alignItems: "center !important",
+              justifyContent: "center !important",
             }}
           >
-            Upload from voice memos
-          </h3>
-          <img
-            className="demo-mobile"
-            src={uploadMob}
-            style={{
-              maxWidth: "70vw",
-              borderRadius: "15px",
-              boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
-            }}
-          />
+            <img
+              className="demo-desktop"
+              src={voiceMemo}
+              style={{
+                width: "28vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
+                alignSelf: "center",
+              }}
+            />
+            <img
+              className="demo-desktop"
+              src={upload}
+              style={{
+                width: "37vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
+                justifySelf: "center",
+              }}
+            />
+          </div>
+          <div className="desktop" style={{ marginBottom: "5vh" }}></div>
         </section>
         {/* 3rd demo section */}
         <section
@@ -381,15 +370,13 @@ export default function Index() {
           <h3
             className="demo-h3 desktop"
             style={{
-              fontSize: "30px",
-              alignSelf: "start",
-              marginLeft: "5vw",
+              fontSize: "42px",
+              alignSelf: "center",
               marginBottom: "5vh",
               maxWidth: "90vw",
             }}
           >
-            Organize chats into folds with drag and drop. Double click, edit
-            names, and hit enter on the keyboard
+            Drag and drop chats and folders, double click to edit names
           </h3>
           <div className="demo3-div" style={{ display: "flex", gap: "5vw" }}>
             <h3
@@ -397,7 +384,7 @@ export default function Index() {
               style={{
                 fontSize: "30px",
                 alignSelf: "start",
-                margin: "2vh 0",
+                margin: "4vh 0 0 0 ",
                 marginLeft: "0vw",
                 marginBottom: "0vh",
                 maxWidth: "90vw",
@@ -409,10 +396,10 @@ export default function Index() {
               className="mobile"
               src={folders}
               style={{
-                marginTop: "0",
+                margin: "2vh 0",
                 maxWidth: "90vw",
                 borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
                 marginLeft: "5vw;",
                 alignSelf: "center",
               }}
@@ -421,18 +408,48 @@ export default function Index() {
               className="demo3-vid desktop"
               src={folders}
               style={{
-                width: "30vw",
+                width: "32.5vw",
                 borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
               }}
             />
             <img
               className="demo3-vid desktop"
               src={spelling}
               style={{
-                width: "30vw",
+                width: "32.5vw",
                 borderRadius: "15px",
-                boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
+              }}
+            />
+            <h3
+              className="demo-h3 mobile"
+              style={{
+                fontSize: "30px",
+                alignSelf: "start",
+                margin: "0",
+                marginLeft: "5vw",
+                maxWidth: "90vw",
+              }}
+            >
+              Upload from voice memos
+            </h3>
+            <img
+              className="demo-mobile"
+              src={filesMob}
+              style={{
+                maxWidth: "70vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
+              }}
+            />
+            <img
+              className="demo-mobile"
+              src={filesMob2}
+              style={{
+                maxWidth: "70vw",
+                borderRadius: "15px",
+                boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
               }}
             />
           </div>
