@@ -78,7 +78,7 @@ export default function Index() {
         >
           <div
             className="index-hero-left"
-            style={{ alignSelf: "center", marginLeft: "5vw" }}
+            style={{ alignSelf: "center", marginLeft: "10vw" }}
           >
             <h1 className="index-hero-left-h1" style={{ fontSize: "84px" }}>
               Transcribe audio then chat with it
@@ -163,27 +163,29 @@ export default function Index() {
           </h2>
 
           <div
-            className="no-focus"
+            className="no-focus index-toggle"
             style={{
               display: "flex",
               alignItems: "space-around",
               justifyContent: "center",
               background: "rgba(170,170,170,1)",
-              padding: "3px 5px",
-              gap: "5px",
+              padding: "4px 8px",
+              gap: "10px",
               borderRadius: "5px",
               cursor: "pointer",
               marginBottom: "5vh",
               boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
+              zIndex: "10",
             }}
           >
             <Button
-              className="no-focus transcript-tab "
+              className="no-focus transcript-tab index-toggle-btn"
               style={{
+                padding: "10px 15px",
                 background: "rgba(211,211,211,.0)",
                 border: "none",
                 cursor: "pointer",
-
+                zIndex: "20",
                 background:
                   demo == "Transcript"
                     ? "rgba(110,110,110,1)"
@@ -194,31 +196,33 @@ export default function Index() {
               Transcript
             </Button>
             <Button
-              className="no-focus transcript-summary-tab "
+              className="no-focus transcript-summary-tab index-toggle-btn"
               style={{
                 cursor: "pointer",
-
+                zIndex: "20",
                 background:
                   demo == "Summary"
                     ? "rgba(110,110,110,1)"
                     : "rgba(211,211,211,.0)",
                 border: "none",
+                padding: "10px 15px",
               }}
               onClick={() => setDemo("Summary")}
             >
               Summary
             </Button>
             <Button
-              className="no-focus transcript-summary-tab "
+              className="no-focus transcript-summary-tab index-toggle-btn"
               style={{
                 cursor: "pointer",
-
+                zIndex: "20",
                 background:
                   demo == "Chat"
                     ? "rgba(110,110,110,1)"
                     : "rgba(211,211,211,.0)",
                 border: "none",
                 width: "90px",
+                padding: "10px 15px",
               }}
               onClick={() => setDemo("Chat")}
             >
@@ -232,7 +236,7 @@ export default function Index() {
                 className="demo-desktop"
                 src={transcriptDesk}
                 style={{
-                  maxWidth: "70vw",
+                  maxWidth: "80vw",
                   borderRadius: "15px",
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
@@ -254,7 +258,7 @@ export default function Index() {
                 className="demo-desktop desktop"
                 src={summaryDesk}
                 style={{
-                  maxWidth: "70vw",
+                  maxWidth: "80vw",
                   borderRadius: "15px",
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
@@ -276,7 +280,7 @@ export default function Index() {
                 className="demo-desktop desktop"
                 src={chatDesk}
                 style={{
-                  maxWidth: "70vw",
+                  maxWidth: "80vw",
                   borderRadius: "15px",
                   boxShadow: "0px 0px 10px rgba(0,123,255, 1)",
                 }}
@@ -327,31 +331,33 @@ export default function Index() {
           <div
             className="desktop"
             style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "5vw",
-              alignItems: "center !important",
-              justifyContent: "center !important",
+              position: "relative",
+              height: "70vh",
+              width: "80vw",
             }}
           >
             <img
               className="demo-desktop"
               src={voiceMemo}
               style={{
-                width: "28vw",
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "40vw",
                 borderRadius: "15px",
                 boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
-                alignSelf: "center",
               }}
             />
             <img
               className="demo-desktop"
               src={upload}
               style={{
-                width: "37vw",
+                position: "absolute",
+                bottom: "0",
+                right: "0",
+                width: "48vw",
                 borderRadius: "15px",
                 boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
-                justifySelf: "center",
               }}
             />
           </div>
@@ -365,6 +371,7 @@ export default function Index() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            marginBottom: "0",
           }}
         >
           <h3
@@ -382,12 +389,15 @@ export default function Index() {
             <h3
               className="demo-h3 mobile"
               style={{
-                fontSize: "30px",
+                fontSize: "24px !important",
                 alignSelf: "start",
                 margin: "4vh 0 0 0 ",
                 marginLeft: "0vw",
                 marginBottom: "0vh",
-                maxWidth: "90vw",
+                marginTop: "10vh",
+                width: "90vw",
+                alignSelf: "center",
+                textAlign: "center",
               }}
             >
               Organize chats inside folders
@@ -408,7 +418,7 @@ export default function Index() {
               className="demo3-vid desktop"
               src={folders}
               style={{
-                width: "32.5vw",
+                width: "37.5vw",
                 borderRadius: "15px",
                 boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
               }}
@@ -417,7 +427,7 @@ export default function Index() {
               className="demo3-vid desktop"
               src={spelling}
               style={{
-                width: "32.5vw",
+                width: "37.5vw",
                 borderRadius: "15px",
                 boxShadow: "1px 1px 10px rgba(140,140,140, 1)",
               }}
@@ -430,6 +440,9 @@ export default function Index() {
                 margin: "0",
                 marginLeft: "5vw",
                 maxWidth: "90vw",
+                marginTop: "5vh",
+                marginLeft: "0",
+                alignSelf: "center",
               }}
             >
               Upload from voice memos

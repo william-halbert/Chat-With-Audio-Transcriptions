@@ -1,6 +1,6 @@
 .index-hero-right {
-  max-height: 80vh;
-  margin-right: 5vw;
+  max-height: 60vh;
+  margin-right: 10vw;
 }
 .demo-mobile {
   display: none !important;
@@ -25,7 +25,7 @@
     align-items: center !important;
   }
   .index-hero-left {
-    margin: 2vh auto 5vh auto;
+    margin: 2vh 5vw 5vh 5vw !important;
   }
   .index-hero-left-h2 {
     font-size: 24px !important;
@@ -51,7 +51,7 @@
     margin-top: 5vh !important;
   }
   .demo-h3 {
-    font-size: 24px !important;
+    font-size: 26px !important;
   }
   .demo3-div {
     flex-direction: column;
@@ -74,5 +74,11 @@
   }
   .desktop {
     display: none !important;
+  }
+  .index-toggle {
+    margin: 7vh 0 3vh 0 !important;
+  }
+  .index-toggle-btn {
+    padding: 8px 8px !important;
   }
 }
