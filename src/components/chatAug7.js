@@ -266,9 +266,7 @@ function AudioToText() {
             chatData.startTime.nanoseconds / 1000000
         );
         const currentTime = new Date();
-        console.log("Current time:", currentTime);
-        console.log("Start time:", startTime);
-        console.log("Audio Duration (min):", chatData.audioDuration);
+
         let progress =
           (((currentTime - startTime) * 2.8) /
             (chatData.audioDuration * 1000 * 60)) *
@@ -277,23 +275,8 @@ function AudioToText() {
         if (progress > 100) {
           progress = 100;
         }
-        console.log("progress reset", progress);
-        console.log("audioduration reset", chatData.audioDuration);
+
         setTranscriptionProgress(progress);
-        /*
-        const interval = setInterval(() => {
-          setTranscriptionProgress((prevProgress) => {
-            const incrementPerSecond =
-              100 / ((chatData.audioDuration / 2.8) * 60);
-            if (prevProgress < 100) {
-              const newProgress = prevProgress + incrementPerSecond;
-              return newProgress > 100 ? 100 : newProgress;
-            } else {
-              clearInterval(interval);
-              return 100;
-            }
-          });
-        }, 1000);*/
         setAudioName(chatData.audioName);
         setAudioDuration(chatData.audioDuration);
       } else {
@@ -301,17 +284,6 @@ function AudioToText() {
         setTranscriptSummary("");
         setTranscribing("No");
       }
-      if (transcribing == "Loading") {
-        if (
-          transcribeRequestReceived !=
-          "It's been sent and will process and load in due time."
-        ) {
-          setTranscriptError(
-            "Wait for the transcription to successfully start in the backend"
-          );
-        }
-      }
-      console.log("transcribing", transcribing);
     } catch (error) {
       console.error("Failed to fetch chat data:", error);
     }
@@ -402,6 +374,7 @@ function AudioToText() {
     fetchChat(chatId);
     setTranscriptError("");
     setMessageError("");
+    /*
     if (transcribing == "Loading") {
       const fetchInterval = setInterval(() => {
         setTranscriptionProgress((prevProgress) => {
@@ -414,13 +387,13 @@ function AudioToText() {
             return 100;
           }
         });
-      }, 1000);
-    }
+      }, 5000);
+    }*/
   }, [chatId]);
 
   useEffect(() => {
     let intervalId;
-
+    /*
     if (transcribing === "Loading") {
       intervalId = setInterval(() => {
         fetchChat(chatId);
@@ -431,7 +404,7 @@ function AudioToText() {
       if (intervalId) {
         clearInterval(intervalId);
       }
-    };
+    };*/
   }, [transcribing]);
 
   //create new folder or chat
@@ -537,7 +510,6 @@ function AudioToText() {
       });
 
       if (type == "Transcript") {
-        console.log(response.data.choices[0].message.content);
         setTranscriptSummary(response.data.choices[0].message.content);
         saveTranscriptSummary(
           String(user.uid),
@@ -587,10 +559,30 @@ function AudioToText() {
   useEffect(() => {
     if (transcript) {
       if (!transcriptSummary) {
+        getUser(user.uid).then((userData) => {
+          if (userData && userData.credits) {
+            setCredits(userData.credits);
+            console.log("Set Credits to ", userData.credits / 100);
+          }
+        });
         try {
-          openaiRequest(transcript, "Transcript");
+          if (credits - 10 > 0) {
+            const sendMessage = async () => {
+              saveChat(String(user.uid), String(chatId), conversation);
+              const openAiResponse = await openaiRequest(
+                transcript,
+                "Transcript"
+              );
+              saveChat(String(user.uid), String(chatId), conversation);
+            };
+            sendMessage();
+          } else {
+            setMessageError(
+              "Not enough credits, see My Credits for more information."
+            );
+          }
         } catch (e) {
-          console.err(e);
+          console.log(e);
         }
       }
     }
@@ -605,7 +597,7 @@ function AudioToText() {
       event.target.elements.audio.files &&
       event.target.elements.audio.files.length > 0
     ) {
-      if (credits - Math.floor(audioDuration * 2) <= 0) {
+      if (credits - Math.floor(audioDuration * 1) <= 0) {
         return setTranscriptError(
           "There are currently not enough credits to transcribe audio of this length, see My Credits page."
         );
@@ -654,7 +646,7 @@ function AudioToText() {
       let response;
       let result;
 
-      let removeAmount = Math.floor(audioDuration * 2);
+      let removeAmount = Math.floor(audioDuration * 1);
       console.log("removeAmount", removeAmount);
       removeCredits(user.uid, removeAmount);
       setCredits(credits - removeAmount);
@@ -669,30 +661,12 @@ function AudioToText() {
       }
       try {
         result = await response.json();
-        if ((result.message = "Started")) {
-          setTranscribeRequestReceived(
-            "It's been sent and will process and load in due time."
-          );
-          setTranscriptError("");
-        }
+        setTranscribing("Done");
+        setTranscriptionProgress(0);
+        setTranscript(result.transcript);
       } catch (e) {
         console.log(e);
       }
-      /*
-      if (response && response.ok) {
-        result = await response.json();
-        setTranscript(result.transcript);
-        //saveTranscript(user.uid, String(chatId), result);
-
-        setTranscribing("Done");
-        saveTranscribing(String(user.uid), String(chatId), "Done");
-        setTranscriptionProgress(0);
-      } else {
-        console.error(
-          "Error:",
-          response ? response.statusText : "No response from server"
-        );
-      }*/
     }
   };
 
@@ -922,20 +896,6 @@ function AudioToText() {
             </form>
           ) : transcribing == "Loading" ? (
             <div style={{ textAlign: "center" }}>
-              {transcriptError && (
-                <Alert variant="warning">
-                  <Spinner
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                  &nbsp;{transcriptError}
-                </Alert>
-              )}
-              {transcribeRequestReceived && (
-                <Alert variant="success">{transcribeRequestReceived}</Alert>
-              )}
               <p>
                 <strong>File Name: </strong> {audioName}
               </p>

@@ -87,7 +87,7 @@ export default function Pricing() {
           ""
         )}
         <div style={sectionStyle} className="pricing-audio">
-          <h1 style={{ fontSize: "54px" }}>$0.02</h1>
+          <h1 style={{ fontSize: "54px" }}>$0.01</h1>
           <h2 style={{ fontSize: "30px", maxWidth: "250px" }}>
             per minute of audio
           </h2>
