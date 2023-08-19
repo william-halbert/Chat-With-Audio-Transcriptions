@@ -92,9 +92,12 @@ export default function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <div className="desktop" style={{ marginRight: "18px" }}>
-                <div className="container d-flex" style={{ gap: "24px" }}>
+                <div
+                  className="container d-flex"
+                  style={{ gap: "24px", color: "black" }}
+                >
                   {user ? (
-                    <Nav.Link href="chat">Chat</Nav.Link>
+                    <Nav.Link href="chat">My notes</Nav.Link>
                   ) : (
                     <Nav.Link href="pricing">Pricing</Nav.Link>
                   )}
@@ -129,8 +132,11 @@ export default function Header() {
                 )}
                 {user && (
                   <>
-                    <Nav.Link href="chat" style={{ padding: "10px 24px" }}>
-                      Chat
+                    <Nav.Link
+                      href="chat"
+                      style={{ color: "black", padding: "10px 24px" }}
+                    >
+                      My notes
                     </Nav.Link>
                     <Nav.Link
                       href="my-credits"

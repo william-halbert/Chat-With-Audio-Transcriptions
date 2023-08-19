@@ -111,7 +111,7 @@ export default function Header() {
                   <div className="desktop" style={{ marginRight: "18px" }}>
                     <div className="container d-flex" style={{ gap: "24px" }}>
                       {user ? (
-                        <Nav.Link href="chat">Chat</Nav.Link>
+                        <Nav.Link href="chat">My notes</Nav.Link>
                       ) : (
                         <Nav.Link href="pricing">Pricing</Nav.Link>
                       )}
@@ -150,7 +150,7 @@ export default function Header() {
                     {user && (
                       <>
                         <Nav.Link href="chat" style={{ padding: "10px 24px" }}>
-                          Chat
+                          My notes
                         </Nav.Link>
                         <Nav.Link
                           href="my-credits"
@@ -275,7 +275,7 @@ export default function Header() {
               }
             }}
           >
-            {user ? "Chat" : "Get Started"}
+            {user ? "My notes" : "Get Started"}
           </button>
         </div>
       )}

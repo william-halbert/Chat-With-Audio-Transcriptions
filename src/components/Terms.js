@@ -15,13 +15,13 @@ export default function Terms() {
         </p>
         <p>
           This website ("Site") is owned and operated by Willful Works, LLC. By
-          accessing or using AudioChat.ai, you agree to be bound by the
+          accessing or using Lecture Leap, you agree to be bound by the
           following terms and conditions.
         </p>
 
         <h2>1. Services</h2>
         <p>
-          AudioChat.ai offers transcription services, where users can submit
+          Lecture Leap offers transcription services, where users can submit
           audio files to be transcribed, and chat services, where users can
           engage in chats based on the transcribed content.
         </p>
@@ -30,7 +30,7 @@ export default function Terms() {
         <ul>
           <li>
             <strong>Transcription Services</strong>: The cost for transcribing
-            audio files is $0.02 per minute of transcription.
+            audio files is $0.01 per minute of transcription.
           </li>
           <li>
             <strong>Chat Services</strong>: Charges for chat are as follows:
@@ -47,7 +47,7 @@ export default function Terms() {
 
         <h2>3. Recording Consent</h2>
         <p>
-          By submitting audio files to AudioChat.ai, users affirm that they have
+          By submitting audio files to Lecture Leap, users affirm that they have
           obtained all necessary permissions and consents to record the audio
           instance, have checked the relevant state or local laws regarding one
           or two-way consent for recording, and have ensured compliance with the
@@ -56,7 +56,7 @@ export default function Terms() {
 
         <h2>4. No Liability</h2>
         <p>
-          AudioChat.ai and Willful Works, LLC shall not be held liable for any
+          Lecture Leap and Willful Works, LLC shall not be held liable for any
           disputes or legal issues arising from the content of the audio files,
           violations of state or local recording consent laws by users, or
           non-compliance with rules or standards of specific professions or
@@ -74,7 +74,7 @@ export default function Terms() {
         <h2>6. Termination</h2>
         <p>
           Willful Works, LLC reserves the right to terminate or suspend access
-          to the AudioChat.ai site for any user who violates these terms and
+          to the LectureLeap.com site for any user who violates these terms and
           conditions, without prior notice.
         </p>
 
@@ -96,7 +96,7 @@ export default function Terms() {
         <h2>9. Contact</h2>
         <p>
           For any inquiries or concerns related to these terms and conditions,
-          please contact us at support@audiochat.ai.
+          please contact us at lectureleap@gmail.com.
         </p>
       </div>{" "}
     </>

@@ -6,12 +6,12 @@ export default function Privacy() {
     <>
       <Header />
       <div className="privacy-policy" style={{ margin: "98px 5vw 5vh 5vw" }}>
-        <h1>Privacy Policy for AudioChat.ai</h1>
+        <h1>Privacy Policy for Lecture Leap</h1>
         <p>
           <strong>Last Updated</strong>: August 8, 2023
         </p>
         <p>
-          At AudioChat.ai, owned and operated by Willful Works, LLC, we value
+          At Lecture Leap, owned and operated by Willful Works, LLC, we value
           the privacy of our users. This Privacy Policy describes the types of
           information we collect, how we use it, and the measures we take to
           protect it.
@@ -71,7 +71,7 @@ export default function Privacy() {
         <h2>8. Contact Us</h2>
         <p>
           If you have questions about this Privacy Policy, please reach out at
-          support@audiochat.ai.
+          lectureleap@gmail.com.
         </p>
       </div>{" "}
     </>

@@ -80,8 +80,26 @@ export default function Index() {
             className="index-hero-left"
             style={{ alignSelf: "center", marginLeft: "10vw" }}
           >
-            <h1 className="index-hero-left-h1" style={{ fontSize: "84px" }}>
-              Transcribe audio then chat with it
+            <h1
+              className="index-hero-left-h1"
+              style={{
+                fontSize: "72px",
+                marginBottom: "24px",
+                maxWidth: "700px",
+              }}
+            >
+              Stress-free<br></br>lectures
+            </h1>
+            <h1
+              className="index-hero-left-h2"
+              style={{
+                fontSize: "36px",
+                marginBottom: "24px",
+                maxWidth: "600px",
+                fontStyle: "italic",
+              }}
+            >
+              Never miss a beat with every word, summaries, and answers
             </h1>
             <div
               className="index-hero-left-buttons-div"
@@ -114,7 +132,7 @@ export default function Index() {
                   }
                 }}
               >
-                {user ? "Chat" : "Get Started"}
+                {user ? "My notes" : "Get Started"}
               </button>
               <h2
                 className="index-hero-left-h2"

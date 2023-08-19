@@ -53,7 +53,7 @@ export default function Footer() {
         />
         <div style={{ padding: "0 12px" }}>
           <a
-            href="https://www.instagram.com/audiochat_ai/"
+            href="https://www.instagram.com/lecture_leap/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -67,7 +67,7 @@ export default function Footer() {
           className="footer-link"
           style={{ marginLeft: "12px", color: "white" }}
         >
-          audiochatai@gmail.com
+          lectureleap@gmail.com
         </p>
       </div>
       <div style={styles.footerRight}>
