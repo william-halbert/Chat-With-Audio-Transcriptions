@@ -602,12 +602,13 @@ function AudioToText() {
           "There are currently not enough credits to transcribe audio of this length, see My Credits page."
         );
       }
+      /*
       if (audioDuration > 60) {
         return setTranscriptError(
           "Transcribed files can be a maximum of 60 minutes."
         );
       }
-
+*/
       const audioFile = event.target.elements.audio.files[0];
       setAudio(URL.createObjectURL(audioFile));
       setAudioFileDetails(audioFile);
@@ -627,7 +628,7 @@ function AudioToText() {
       console.log("audioduration", audioDuration);
       const interval = setInterval(() => {
         setTranscriptionProgress((prevProgress) => {
-          const incrementPerSecond = 100 / ((audioDuration / 3) * 60);
+          const incrementPerSecond = 100 / ((audioDuration / 60) * 60);
           if (prevProgress < 100) {
             const newProgress = prevProgress + incrementPerSecond;
             return newProgress > 100 ? 100 : newProgress;
@@ -664,6 +665,7 @@ function AudioToText() {
         setTranscribing("Done");
         setTranscriptionProgress(0);
         setTranscript(result.transcript);
+        setShowTranscriptText("Transcript");
       } catch (e) {
         console.log(e);
       }
@@ -875,8 +877,7 @@ function AudioToText() {
                     Add Audio Files
                   </h4>
                   <h5 style={{ maxWidth: "400px", margin: "0 auto" }}>
-                    .mp3 and .m4a files are accepted, with a maximum length of
-                    60 min
+                    We accept MP3, MP4, MP2, AAC, WAV, FLAC, PCM, and M4A
                   </h5>
                 </label>
                 {audioFileDetails && (
@@ -918,16 +919,16 @@ function AudioToText() {
               <p style={{ marginTop: "10px" }}>
                 <strong>Estimated: </strong>
                 {Math.floor(
-                  (audioDuration / 2.8) * (transcriptionProgress / 100)
+                  (audioDuration / 60) * (transcriptionProgress / 100)
                 )}{" "}
                 min :{" "}
                 {Math.floor(
-                  (((audioDuration * 60) / 2.8) *
+                  (((audioDuration * 60) / 60) *
                     (transcriptionProgress / 100)) %
                     60
                 )}{" "}
-                sec / {Math.floor(audioDuration / 2.8)} min :{" "}
-                {Math.floor(((audioDuration * 60) / 2.8) % 60)} sec
+                sec / {Math.floor(audioDuration / 60)} min :{" "}
+                {Math.floor(((audioDuration * 60) / 60) % 60)} sec
               </p>
             </div>
           ) : showTranscriptText == "Transcript" ? (

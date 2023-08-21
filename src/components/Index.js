@@ -72,6 +72,21 @@ export default function Index() {
       )}
       <div style={{ marginTop: "86px", marginBottom: "20vh" }}>
         {/* Hero section */}
+        <div
+          className="index-free-credtits"
+          style={{
+            margin: "13vh 10vw 5vh 10vw",
+            borderRadius: "50px",
+            background: "#951ABE",
+            padding: "12px 24px",
+            fontSize: "20px",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          We're giving everyone $10 of credits upon signup. Please share any
+          feedback at lectureleap@gmail.com
+        </div>
         <section
           className="index-hero"
           style={{ display: "flex", justifyContent: "space-between" }}

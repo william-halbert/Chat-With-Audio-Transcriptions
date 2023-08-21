@@ -90,4 +90,8 @@
   .index-hero-left-buttons-div {
     justify-content: center !important;
   }
+  .index-free-credtits {
+    margin: 13vh 10vw 0vh 10vw !important;
+    border-radius: 25px !important;
+  }
 }

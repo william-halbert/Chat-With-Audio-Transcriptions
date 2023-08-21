@@ -71,15 +71,15 @@ export default function Pricing() {
                 margin: "24px",
                 padding: "10vh 3vw",
                 textAlign: "center",
-                boxShadow: "1px 1px 15px rgba(221,221,221, .8)",
+                boxShadow: "1px 1px 15px #951ABE",
               }}
             >
-              <h1 style={{ fontSize: "54px" }}>Free</h1>
+              <h1 style={{ fontSize: "54px" }}>$10 given Free!</h1>
               <h2
                 className="pricing-free-credits-h2"
                 style={{ fontSize: "30px", maxWidth: "250px" }}
               >
-                $0.50 in credit upon signing up
+                upon sign up
               </h2>
             </div>
           </>
