@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { getAuth } from "firebase/auth";
+import { useAuth } from "../contexts/AuthContext";
 import Header from "./HeaderLanding";
 import "./Pricing.css";
+import { Link, useNavigate } from "react-router-dom";
+import { Card, Form, Button, Alert, Modal } from "react-bootstrap";
+import Footer from "./Footer";
 
 export default function Pricing() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
   const giveCredits = true;
   const sectionStyle = {
     display: "flex",
@@ -16,106 +27,649 @@ export default function Pricing() {
     padding: "10vh 3vw",
     textAlign: "center",
   };
+  const handleGetThis = (e) => {
+    e.preventDefault();
+    if (user) {
+      navigate("/my-credits");
+    } else {
+      setShowSignupModal(true);
+    }
+  };
 
   return (
     <>
       <Header />
       <div style={{ marginTop: "16vh" }}></div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
-        <h1 className="pricing-h1" style={{ fontSize: "42px" }}>
-          Usage-Based{" "}
+        <h1
+          className="pricing-h1"
+          style={{ fontSize: "64px", textAlign: "center" }}
+        >
+          Plans & Pricing
         </h1>
-        <ul>
-          <li
-            className="pricing-li"
-            style={{ fontSize: "28px", marginTop: "4px" }}
-          >
-            Transcriptions and chats (OpenAI APIs) are usage-based costs,
-            charged per request
-          </li>
-          <li
-            className="pricing-li"
-            style={{ fontSize: "28px", marginTop: "4px" }}
-          >
-            Buy credits to be able to use these functionalities
-          </li>
-          <li
-            className="pricing-li"
-            style={{ fontSize: "28px", marginTop: "4px" }}
-          >
-            1,000 tokens is about 750 words
-          </li>
-        </ul>
       </div>
       <div
         className="pricing-numbers"
         style={{
           display: "flex",
           justifyContent: "center",
-          maxWidth: "90vw",
+          width: "90vw",
           marginLeft: "5vw",
           marginTop: "8vh",
+          flexWrap: "wrap",
         }}
       >
-        {giveCredits ? (
-          <>
-            <div
-              className="pricing-free-credits"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                borderRadius: "25px",
-                minWidth: "15vw",
-                justifyContent: "center",
-                margin: "24px",
-                padding: "10vh 3vw",
-                textAlign: "center",
-                boxShadow: "1px 1px 15px #951ABE",
-              }}
-            >
-              <h1 style={{ fontSize: "54px" }}>$10 given Free!</h1>
-              <h2
-                className="pricing-free-credits-h2"
-                style={{ fontSize: "30px", maxWidth: "250px" }}
-              >
-                upon sign up
-              </h2>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
-        <div style={sectionStyle} className="pricing-audio">
-          <h1 style={{ fontSize: "54px" }}>$0.01</h1>
-          <h2 style={{ fontSize: "30px", maxWidth: "250px" }}>
-            per minute of audio
-          </h2>
-        </div>
         <div
-          className="pricing-tokens"
+          className="pricing-free-credits"
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "start",
             borderRadius: "25px",
-            justifyContent: "center",
-            margin: "24px",
-
-            textAlign: "center",
-            padding: "10vh 3vw",
-            boxShadow: "1px 1px 15px rgba(0,123,255, .8)",
-            width: "400px",
+            width: "250px",
+            justifyContent: "start",
+            margin: "24px 24px 24px 24px",
+            background: "rgba(211,211,221, .6)",
+            padding: "24px",
+            height: "368px",
           }}
         >
-          <div>
-            <h1 style={{ fontSize: "36px " }}>$0.005 /</h1>
-            <h1 style={{ fontSize: "24px " }}>1k tokens input</h1>
-            <h1 style={{ fontSize: "36px ", marginTop: "24px" }}>$0.007 /</h1>
-            <h1 style={{ fontSize: "24px" }}>1k tokens output</h1>
+          <h2 className="pricing-title" style={{ margin: "0 0 12px 0" }}>
+            Two week<br></br>trial
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              alignSelf: "center",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "0 0 12px 0",
+            }}
+          >
+            <h1 className="pricing-price">Free</h1>
+
+            <p
+              className="pricing-per-month"
+              style={{ margin: "0", lineHeight: "18px" }}
+            >
+              for<br></br>two weeks
+            </p>
+          </div>
+          <Button
+            style={{
+              borderRadius: "50px",
+              width: "200px",
+              alignSelf: "center",
+              justifySelf: "center",
+              marginBottom: "12px",
+              background: "white",
+              border: "3px solid #0795FF",
+              cursour: "pointer",
+              color: "#0795FF",
+              fontSize: "22px",
+            }}
+            onClick={handleGetThis}
+            className="get-this-button"
+          >
+            Get started
+          </Button>
+          <ul
+            className="pricing-ul"
+            style={{
+              margin: "0",
+              fontSize: "18px",
+              textAlign: "left",
+              paddingLeft: "12px",
+              width: "210px",
+            }}
+          >
+            <li>5 hours of transcriptions</li>
+            <li>2 million words to ChatGPT</li>
+          </ul>
+        </div>
+        <div
+          className="pricing-free-credits"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            borderRadius: "25px",
+            width: "250px",
+            justifyContent: "start",
+            margin: "24px 24px 24px 24px",
+            background: "rgba(211,211,221, .6)",
+            padding: "24px",
+            height: "368px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 12px 0" }} className="pricing-title">
+            I'm a focusing master
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              alignSelf: "center",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "0 0 12px 0",
+            }}
+          >
+            <h1 className="pricing-price">$10</h1>
+
+            <p
+              className="pricing-per-month"
+              style={{ margin: "0", lineHeight: "18px" }}
+            >
+              per<br></br>month
+            </p>
+          </div>
+          <Button
+            style={{
+              borderRadius: "50px",
+              width: "200px",
+              alignSelf: "center",
+              marginBottom: "12px",
+              background: "#0795FF",
+              cursour: "pointer",
+              border: "none",
+              color: "white",
+              fontSize: "22px",
+            }}
+            onClick={handleGetThis}
+          >
+            Get this
+          </Button>
+          <ul
+            className="pricing-ul"
+            style={{
+              margin: "0",
+              fontSize: "18px",
+              textAlign: "left",
+              paddingLeft: "12px",
+              width: "210px",
+            }}
+          >
+            <li>6 hours of transcriptions</li>
+            <li>2 million words to ChatGPT</li>
+          </ul>
+        </div>
+
+        <div
+          className="pricing-free-credits pricing-half"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            borderRadius: "25px",
+            width: "250px",
+            justifyContent: "start",
+            margin: "24px 24px 24px 24px",
+            background: "rgba(211,211,221, .6)",
+            padding: "24px",
+            height: "368px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 12px 0" }} className="pricing-title">
+            I zone out half of the time
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              alignSelf: "center",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "0 0 12px 0",
+            }}
+          >
+            <h1 className="pricing-price">$20</h1>
+
+            <p
+              className="pricing-per-month"
+              style={{ margin: "0", lineHeight: "18px" }}
+            >
+              per<br></br>month
+            </p>
+          </div>
+          <Button
+            style={{
+              borderRadius: "50px",
+              width: "200px",
+              alignSelf: "center",
+              marginBottom: "12px",
+              background: "#0795FF",
+              cursour: "pointer",
+              border: "none",
+              color: "white",
+              fontSize: "22px",
+            }}
+            onClick={handleGetThis}
+          >
+            Get this
+          </Button>
+          <ul
+            className="pricing-ul"
+            style={{
+              margin: "0",
+              fontSize: "18px",
+              textAlign: "left",
+              paddingLeft: "12px",
+              width: "210px",
+            }}
+          >
+            <li>20 hours of transcriptions</li>
+            <li>5 million words to ChatGPT</li>
+          </ul>
+        </div>
+
+        <div style={{ position: "relative", top: "-48px" }}>
+          <div
+            className="pricing-best-value"
+            style={{
+              background: "#0795FF",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              borderRadius: "25px 25px 0 0",
+              width: "250px",
+              justifyContent: "start",
+              padding: "12px 24px",
+              margin: "24px 24px 0 24px",
+            }}
+          >
+            <h2 style={{ color: "white", fontSize: "24px", margin: "0" }}>
+              Best Value
+            </h2>
+          </div>
+          <div
+            className="pricing-best-section"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              borderRadius: "0 0 25px 25px",
+              width: "250px",
+              justifyContent: "start",
+              margin: "0 24px 24px 24px",
+              background: "rgba(211,211,221, .6)",
+              padding: "24px",
+              height: "368px",
+            }}
+          >
+            <h2 className="pricing-title" style={{ margin: "0 0 12px 0" }}>
+              I zone out all the time
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                alignSelf: "center",
+                gap: "12px",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "0 0 12px 0",
+              }}
+            >
+              <h1 className="pricing-price">$40</h1>
+
+              <p
+                className="pricing-per-month"
+                style={{ margin: "0", lineHeight: "18px" }}
+              >
+                per<br></br>month
+              </p>
+            </div>
+            <Button
+              style={{
+                borderRadius: "50px",
+                width: "200px",
+                alignSelf: "center",
+                marginBottom: "12px",
+                background: "#0795FF",
+                cursour: "pointer",
+                border: "none",
+                color: "white",
+                fontSize: "22px",
+              }}
+              onClick={handleGetThis}
+            >
+              Get this
+            </Button>
+            <ul
+              className="pricing-ul"
+              style={{
+                margin: "0",
+                fontSize: "18px",
+                textAlign: "left",
+                paddingLeft: "12px",
+                width: "210px",
+              }}
+            >
+              <li>90 hours of transcriptions</li>
+              <li>10 million words to ChatGPT</li>
+            </ul>
           </div>
         </div>
       </div>
+      {showLoginModal && (
+        <Login
+          showLoginModal={showLoginModal}
+          setShowLoginModal={setShowLoginModal}
+          showSignupModal={showSignupModal}
+          setShowSignupModal={setShowSignupModal}
+          showForgotModal={showForgotModal}
+          setShowForgotModal={setShowForgotModal}
+        />
+      )}
+      {showSignupModal && (
+        <Signup
+          showLoginModal={showLoginModal}
+          setShowLoginModal={setShowLoginModal}
+          showSignupModal={showSignupModal}
+          setShowSignupModal={setShowSignupModal}
+          showForgotModal={showForgotModal}
+          setShowForgotModal={setShowForgotModal}
+        />
+      )}
+      {showForgotModal && (
+        <ForgotPassword
+          showLoginModal={showLoginModal}
+          setShowLoginModal={setShowLoginModal}
+          showSignupModal={showSignupModal}
+          setShowSignupModal={setShowSignupModal}
+          showForgotModal={showForgotModal}
+          setShowForgotModal={setShowForgotModal}
+        />
+      )}
+    </>
+  );
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+*/
+
+function Login(props) {
+  const {
+    showLoginModal,
+    setShowLoginModal,
+    showSignupModal,
+    setShowSignupModal,
+    showForgotModal,
+    setShowForgotModal,
+  } = props;
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    try {
+      setError("");
+      setLoading(true);
+      const response = await login(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      if (response != "success") {
+        return setError(response);
+      } else {
+        setSuccess("You're logged in!");
+      }
+    } catch (err) {
+      console.log(err);
+      setError("Failed to log in.");
+    }
+    setLoading(false);
+  }
+  return (
+    <>
+      <Modal
+        show={showLoginModal}
+        onHide={() => {
+          setShowLoginModal(false);
+          setShowSignupModal(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Log In</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
+          <Form onSubmit={handleLogin}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} required />
+            </Form.Group>
+            <Button className="w-100 mt-3" type="submit">
+              Log In
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-3">
+            <Link
+              onClick={() => {
+                setShowLoginModal(false);
+                setShowSignupModal(false);
+                setShowForgotModal(true);
+              }}
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          <div
+            className="w-100 text-center mt-2"
+            onClick={() => {
+              setShowLoginModal(false);
+              setShowSignupModal(true);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Need an account? <Link>Sign Up</Link>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+function Signup(props) {
+  const {
+    showLoginModal,
+    setShowLoginModal,
+    showSignupModal,
+    setShowSignupModal,
+  } = props;
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const { signup, authError, verifyEmail } = useAuth();
+  const navigate = useNavigate();
+  const [confirmedTerms, setConfirmedTerms] = useState(false);
+  const handleVerify = () => {
+    try {
+      console.log("willhalbert16@gmail.com");
+    } catch (e) {
+      console.log(e);
+    }
+    verifyEmail("willhalbert16@gmail.com");
+  };
+  async function handleSignUp(e) {
+    e.preventDefault();
+    if (!confirmedTerms) {
+      return setError("Accept the terms and conditions to sign up.");
+    }
+    if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
+      return setError("Passwords do not match.");
+    }
+    try {
+      setError("");
+      setLoading(true);
+      const response = await signup(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      if (response != "success") {
+        return setError(response);
+      } else {
+        return setSuccess(
+          "You're signed up! Check your email in a few minutes for a verification link"
+        );
+        setShowSignupModal(false);
+      }
+    } catch (err) {
+      console.log(err);
+      setError("Failed to set up an account.");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <>
+      <Modal
+        show={showSignupModal}
+        onHide={() => {
+          setShowLoginModal(false);
+          setShowSignupModal(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Sign Up</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
+          <Form onSubmit={handleSignUp}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} required />
+            </Form.Group>
+            <Form.Group id="password-confirmation">
+              <Form.Label>Password Confirmation</Form.Label>
+              <Form.Control
+                type="password"
+                ref={passwordConfirmationRef}
+                required
+              />
+            </Form.Group>
+            <Form.Group id="terms-confirmation" style={{ marginTop: "12px" }}>
+              <Form.Check
+                type="checkbox"
+                label={
+                  <>
+                    I have read and accept the{" "}
+                    <Link to="/terms-and-conditions">terms and conditions</Link>
+                  </>
+                }
+                onChange={(e) => setConfirmedTerms(e.target.checked)}
+              />
+            </Form.Group>
+            <Button className="w-100 mt-3" type="submit">
+              Sign Up
+            </Button>
+          </Form>
+
+          <div
+            className="w-100 text-center mt-2"
+            onClick={() => {
+              setShowLoginModal(true);
+              setShowSignupModal(false);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Already have an account? <Link>Log In</Link>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+function ForgotPassword(props) {
+  const { showForgotModal, setShowLoginModal, setShowForgotModal } = props;
+  const emailRef = useRef();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { resetPassword } = useAuth();
+  const [message, setMessage] = useState("");
+
+  async function handleReset(e) {
+    e.preventDefault();
+    try {
+      setError("");
+      setLoading(true);
+      const response = await resetPassword(emailRef.current.value);
+      if (response != "success") {
+        return setError(response);
+      } else {
+        setMessage("Check your email for further instructions.");
+      }
+    } catch (err) {
+      console.log(err);
+      setError("Failed to reset password.");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <>
+      <Modal show={showForgotModal} onHide={() => setShowForgotModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reset Password</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          {message && <Alert variant="success">{message}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleReset}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Button className="w-100 mt-3" type="submit">
+              Reset Password
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-3">
+            <Link
+              onClick={() => {
+                setShowLoginModal(true);
+                setShowForgotModal(false);
+              }}
+            >
+              Login
+            </Link>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

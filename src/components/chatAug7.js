@@ -544,6 +544,7 @@ function AudioToText() {
 
         removeCredits(user.uid, cost);
         setCredits(credits - cost);
+        setMessageState("Done");
       }
 
       setMessage("");
@@ -602,13 +603,13 @@ function AudioToText() {
           "There are currently not enough credits to transcribe audio of this length, see My Credits page."
         );
       }
-      /*
-      if (audioDuration > 60) {
+
+      if (audioDuration > 52) {
         return setTranscriptError(
-          "Transcribed files can be a maximum of 60 minutes."
+          "Transcribed files can be a maximum of 50 minutes."
         );
       }
-*/
+
       const audioFile = event.target.elements.audio.files[0];
       setAudio(URL.createObjectURL(audioFile));
       setAudioFileDetails(audioFile);
@@ -671,8 +672,9 @@ function AudioToText() {
       }
     }
   };
-
+  const [messageState, setMessageState] = useState();
   const sendMessage = async (event) => {
+    setMessageState("Waiting");
     setMessageError("");
     event.preventDefault();
     if (credits - 10 > 0) {
@@ -877,7 +879,8 @@ function AudioToText() {
                     Add Audio Files
                   </h4>
                   <h5 style={{ maxWidth: "400px", margin: "0 auto" }}>
-                    We accept MP3, MP4, MP2, AAC, WAV, FLAC, PCM, and M4A
+                    We accept MP3, MP4, MP2, AAC, WAV, FLAC, PCM, and M4A, Files
+                    can't be longer than 50 minutes
                   </h5>
                 </label>
                 {audioFileDetails && (
@@ -933,7 +936,7 @@ function AudioToText() {
             </div>
           ) : showTranscriptText == "Transcript" ? (
             <div>Transcript: {transcript}</div>
-          ) : (
+          ) : transcriptSummary != "" ? (
             <div
               style={{
                 display: "flex",
@@ -944,6 +947,16 @@ function AudioToText() {
               }}
               className="transcript-summary"
             ></div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+              className="transcript-summary"
+            >
+              Fetching your summary...
+            </div>
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -1353,16 +1366,50 @@ function AudioToText() {
                     <img
                       src={item.role === "user" ? defaultUserImg : robotImg}
                       style={{ width: "50px", height: "50px" }}
+                      className="desktop"
                     />
                     <p
                       key={index}
-                      style={{ fontSize: "16px", lineHeight: "24px" }}
+                      style={{
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                        marginBottom: "0",
+                      }}
                     >
                       {item.content}
                     </p>
                   </div>
                 );
               })}
+              {messageState == "Waiting" ? (
+                <div
+                  style={{
+                    padding: "24px 7vw",
+                    margin: "0",
+                    backgroundColor: "rgba(233,244,255,.7)",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "36px",
+                  }}
+                >
+                  <img
+                    src={robotImg}
+                    style={{ width: "50px", height: "50px" }}
+                    className="desktop"
+                  />
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      lineHeight: "24px",
+                      marginBottom: "0",
+                    }}
+                  >
+                    I'm thinking...
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             <div style={{ marginTop: "120px" }}></div>
             {/* Send a message  */}

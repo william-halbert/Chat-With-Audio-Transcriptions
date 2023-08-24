@@ -71,7 +71,7 @@ export default function Index() {
         />
       )}
       <div style={{ marginTop: "86px", marginBottom: "20vh" }}>
-        {/* Hero section */}
+        {/* Hero section
         <div
           className="index-free-credtits"
           style={{
@@ -86,7 +86,7 @@ export default function Index() {
         >
           We're giving everyone $10 of credits upon signup. Please share any
           feedback at lectureleap@gmail.com
-        </div>
+        </div> */}
         <section
           className="index-hero"
           style={{ display: "flex", justifyContent: "space-between" }}
@@ -147,7 +147,7 @@ export default function Index() {
                   }
                 }}
               >
-                {user ? "My notes" : "Get Started"}
+                {user ? "My Lectures" : "Get Started"}
               </button>
               <h2
                 className="index-hero-left-h2"

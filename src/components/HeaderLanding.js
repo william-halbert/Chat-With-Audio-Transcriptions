@@ -97,7 +97,7 @@ export default function Header() {
                   style={{ gap: "24px", color: "black" }}
                 >
                   {user ? (
-                    <Nav.Link href="chat">My notes</Nav.Link>
+                    <Nav.Link href="chat">My Lectures</Nav.Link>
                   ) : (
                     <Nav.Link href="pricing">Pricing</Nav.Link>
                   )}
@@ -136,7 +136,7 @@ export default function Header() {
                       href="chat"
                       style={{ color: "black", padding: "10px 24px" }}
                     >
-                      My notes
+                      My Lectures
                     </Nav.Link>
                     <Nav.Link
                       href="my-credits"
