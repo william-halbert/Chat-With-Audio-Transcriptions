@@ -1,0 +1,49 @@
+#paperAirplane {
+  opacity: 1;
+  transform-origin: center;
+}
+
+.fly-up {
+  animation: loopAndFly 0.8s cubic-bezier(0, 0, 0, 0) forwards;
+}
+@keyframes loopAndFly {
+  0% {
+    transform: translateY(0) translateX(0px) rotate(0deg);
+    opacity: 1;
+  }
+
+  8.3% {
+    transform: translateY(-80px) translateX(50px) rotate(-45deg);
+  }
+
+  18.1% {
+    transform: translateY(-195px) translateX(80px) rotate(-110.5deg);
+  }
+
+  32.4% {
+    transform: translateY(-290px) translateX(-50px) rotate(-185deg);
+  }
+  44.2% {
+    transform: translateY(-230px) translateX(-110px) rotate(-280deg);
+  }
+
+  55.2% {
+    transform: translateY(-180px) translateX(-70px) rotate(-310deg);
+  }
+
+  65% {
+    transform: translateY(-175px) translateX(0px) rotate(-375deg);
+  }
+
+  78% {
+    transform: translateY(-220px) translateX(80px) rotate(-415deg);
+  }
+
+  89% {
+    transform: translateY(-275px) translateX(100px) rotate(-465deg);
+  }
+
+  100% {
+    transform: translateY(-320px) translateX(80px) rotate(-480deg);
+  }
+}

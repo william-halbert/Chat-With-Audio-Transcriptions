@@ -6,6 +6,7 @@ import "./Pricing.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Button, Alert, Modal } from "react-bootstrap";
 import Footer from "./Footer";
+import Checkout from "./Checkout";
 
 export default function Pricing() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -14,19 +15,7 @@ export default function Pricing() {
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
-  const giveCredits = true;
-  const sectionStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    borderRadius: "25px",
-    minWidth: "15vw",
-    justifyContent: "center",
-    boxShadow: "1px 1px 15px rgba(0,123,255, .8)",
-    margin: "24px",
-    padding: "10vh 3vw",
-    textAlign: "center",
-  };
+
   const handleGetThis = (e) => {
     e.preventDefault();
     if (user) {
@@ -71,33 +60,16 @@ export default function Pricing() {
             margin: "24px 24px 24px 24px",
             background: "rgba(211,211,221, .6)",
             padding: "24px",
-            height: "368px",
+            height: "270px",
           }}
         >
           <h2 className="pricing-title" style={{ margin: "0 0 12px 0" }}>
-            Two week<br></br>trial
+            One month<br></br>free trial
           </h2>
-          <div
-            style={{
-              display: "flex",
-              alignSelf: "center",
-              gap: "12px",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "0 0 12px 0",
-            }}
-          >
-            <h1 className="pricing-price">Free</h1>
 
-            <p
-              className="pricing-per-month"
-              style={{ margin: "0", lineHeight: "18px" }}
-            >
-              for<br></br>two weeks
-            </p>
-          </div>
           <Button
             style={{
+              marginTop: "24px",
               borderRadius: "50px",
               width: "200px",
               alignSelf: "center",
@@ -107,26 +79,26 @@ export default function Pricing() {
               border: "3px solid #0795FF",
               cursour: "pointer",
               color: "#0795FF",
-              fontSize: "22px",
+              fontSize: "28px",
+              padding: " 10px 20px",
             }}
             onClick={handleGetThis}
             className="get-this-button"
           >
             Get started
           </Button>
-          <ul
+          <h4
             className="pricing-ul"
             style={{
               margin: "0",
-              fontSize: "18px",
+              fontSize: "22px",
               textAlign: "left",
-              paddingLeft: "12px",
+              paddingLeft: "0",
               width: "210px",
             }}
           >
-            <li>5 hours of transcriptions</li>
-            <li>2 million words to ChatGPT</li>
-          </ul>
+            12 hours of lectures
+          </h4>
         </div>
         <div
           className="pricing-free-credits"
@@ -140,11 +112,11 @@ export default function Pricing() {
             margin: "24px 24px 24px 24px",
             background: "rgba(211,211,221, .6)",
             padding: "24px",
-            height: "368px",
+            height: "270px",
           }}
         >
           <h2 style={{ margin: "0 0 12px 0" }} className="pricing-title">
-            I'm a focusing master
+            Basic
           </h2>
           <div
             style={{
@@ -156,7 +128,7 @@ export default function Pricing() {
               margin: "0 0 12px 0",
             }}
           >
-            <h1 className="pricing-price">$10</h1>
+            <h1 className="pricing-price">$9.99</h1>
 
             <p
               className="pricing-per-month"
@@ -165,35 +137,20 @@ export default function Pricing() {
               per<br></br>month
             </p>
           </div>
-          <Button
-            style={{
-              borderRadius: "50px",
-              width: "200px",
-              alignSelf: "center",
-              marginBottom: "12px",
-              background: "#0795FF",
-              cursour: "pointer",
-              border: "none",
-              color: "white",
-              fontSize: "22px",
-            }}
-            onClick={handleGetThis}
-          >
-            Get this
-          </Button>
-          <ul
+          <Checkout productId={"price_1NkpcgJ7QtFqMwlQqy2Ofg0q"} />
+
+          <h4
             className="pricing-ul"
             style={{
-              margin: "0",
-              fontSize: "18px",
+              margin: "12px 0 0 0",
+              fontSize: "22px",
               textAlign: "left",
-              paddingLeft: "12px",
+              paddingLeft: "0",
               width: "210px",
             }}
           >
-            <li>6 hours of transcriptions</li>
-            <li>2 million words to ChatGPT</li>
-          </ul>
+            12 hours of lectures
+          </h4>
         </div>
 
         <div
@@ -208,11 +165,11 @@ export default function Pricing() {
             margin: "24px 24px 24px 24px",
             background: "rgba(211,211,221, .6)",
             padding: "24px",
-            height: "368px",
+            height: "270px",
           }}
         >
           <h2 style={{ margin: "0 0 12px 0" }} className="pricing-title">
-            I zone out half of the time
+            Premium{" "}
           </h2>
           <div
             style={{
@@ -224,7 +181,7 @@ export default function Pricing() {
               margin: "0 0 12px 0",
             }}
           >
-            <h1 className="pricing-price">$20</h1>
+            <h1 className="pricing-price">$19.99</h1>
 
             <p
               className="pricing-per-month"
@@ -233,35 +190,20 @@ export default function Pricing() {
               per<br></br>month
             </p>
           </div>
-          <Button
-            style={{
-              borderRadius: "50px",
-              width: "200px",
-              alignSelf: "center",
-              marginBottom: "12px",
-              background: "#0795FF",
-              cursour: "pointer",
-              border: "none",
-              color: "white",
-              fontSize: "22px",
-            }}
-            onClick={handleGetThis}
-          >
-            Get this
-          </Button>
-          <ul
+          <Checkout productId={"price_1Nkpd9J7QtFqMwlQXI6y8sk6"} />
+
+          <h4
             className="pricing-ul"
             style={{
-              margin: "0",
-              fontSize: "18px",
+              margin: "12px 0 0 0",
+              fontSize: "22px",
               textAlign: "left",
-              paddingLeft: "12px",
+              paddingLeft: "0",
               width: "210px",
             }}
           >
-            <li>20 hours of transcriptions</li>
-            <li>5 million words to ChatGPT</li>
-          </ul>
+            30 hours of lectures
+          </h4>
         </div>
 
         <div style={{ position: "relative", top: "-48px" }}>
@@ -295,11 +237,11 @@ export default function Pricing() {
               margin: "0 24px 24px 24px",
               background: "rgba(211,211,221, .6)",
               padding: "24px",
-              height: "368px",
+              height: "270px",
             }}
           >
             <h2 className="pricing-title" style={{ margin: "0 0 12px 0" }}>
-              I zone out all the time
+              Pro{" "}
             </h2>
             <div
               style={{
@@ -311,7 +253,7 @@ export default function Pricing() {
                 margin: "0 0 12px 0",
               }}
             >
-              <h1 className="pricing-price">$40</h1>
+              <h1 className="pricing-price">$29.99</h1>
 
               <p
                 className="pricing-per-month"
@@ -320,35 +262,20 @@ export default function Pricing() {
                 per<br></br>month
               </p>
             </div>
-            <Button
-              style={{
-                borderRadius: "50px",
-                width: "200px",
-                alignSelf: "center",
-                marginBottom: "12px",
-                background: "#0795FF",
-                cursour: "pointer",
-                border: "none",
-                color: "white",
-                fontSize: "22px",
-              }}
-              onClick={handleGetThis}
-            >
-              Get this
-            </Button>
-            <ul
+            <Checkout productId={"price_1NkpdUJ7QtFqMwlQy3ez0cW2"} />
+
+            <h4
               className="pricing-ul"
               style={{
-                margin: "0",
-                fontSize: "18px",
+                margin: "12px 0 0 0",
+                fontSize: "22px",
                 textAlign: "left",
-                paddingLeft: "12px",
+                paddingLeft: "0",
                 width: "210px",
               }}
             >
-              <li>90 hours of transcriptions</li>
-              <li>10 million words to ChatGPT</li>
-            </ul>
+              60 hours of lectures
+            </h4>
           </div>
         </div>
       </div>

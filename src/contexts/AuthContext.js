@@ -315,7 +315,8 @@ export function AuthProvider({ children }) {
     const docData = {
       userId: String(uid),
       createdDate: Timestamp.fromDate(new Date()),
-      credits: 1000,
+      plan: "FreeTrial",
+      minutesRemaing: 720,
       email: email,
     };
     try {

@@ -14,6 +14,10 @@ import Index from "./Index";
 import MyCredits from "./MyCredits";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import InClass from "./InClass";
+import Notebook from "./Notebook";
+import Pdf from "./Pdf";
+import Ppt from "./Ppt";
 
 function App() {
   return (
@@ -28,8 +32,11 @@ function App() {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/notebook" element={<Notebook />} />
+              <Route path="/pdf" element={<Pdf />} />
+              <Route path="/ppt" element={<Ppt />} />
               <Route path="/pricing" element={<Pricing />} />
-
+              <Route path="/in-class" element={<InClass />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />

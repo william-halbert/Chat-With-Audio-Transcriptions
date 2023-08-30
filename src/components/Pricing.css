@@ -31,7 +31,7 @@
   .pricing-free-credits {
     width: 350px !important;
     margin-top: 24px !important;
-    height: 400px !important;
+    height: 270px !important;
   }
   .pricing-numbers {
     margin-top: 0vh !important;
@@ -49,7 +49,7 @@
   }
   .pricing-best-section {
     width: 300px !important;
-    height: 424px !important;
+    height: 270px !important;
   }
   .pricing-price {
     font-size: 42px !important;
@@ -68,6 +68,6 @@
     font-size: 24px !important;
   }
   .pricing-half {
-    height: 475px !important;
+    height: 270px !important;
   }
 }

@@ -8,14 +8,16 @@ import { getDatabase } from "firebase/database";
 import "./MyCredits.css";
 
 export default function MyCredits() {
-  const [amount, setAmount] = useState(10);
-  const [credits, setCredits] = useState(null);
+  const [productId, setProductId] = useState();
+  const [plan, setPlan] = useState(null);
+  const [hoursRemaining, setHoursRemaining] = useState(null);
 
   const { getUser } = useAuth();
   const auth = getAuth();
   const user = auth.currentUser;
   const db = getDatabase();
 
+  /*
   useEffect(() => {
     getUser(user.uid).then((userData) => {
       console.log(userData);
@@ -24,7 +26,7 @@ export default function MyCredits() {
         console.log("Set Credits to ", userData.credits / 100);
       }
     });
-  }, []);
+  }, []);*/
   return (
     <>
       <Header />
@@ -44,22 +46,23 @@ export default function MyCredits() {
               fontSize: "36px",
             }}
           >
-            Your Profile
+            Your Plan
           </h1>
-          {credits || credits == 0 ? (
+          <h1
+            style={{
+              fontSize: "28px",
+              color: "#007BFF",
+            }}
+          >
+            Basic
+          </h1>
+          {hoursRemaining || hoursRemaining == 0 ? (
             <h1
               style={{
                 fontSize: "28px",
               }}
             >
-              <span
-                style={{
-                  color: "#007BFF",
-                }}
-              >
-                ${credits.toFixed(2)}
-              </span>{" "}
-              of credits remaining
+              10 hours, 33 minutes remaining (this month)
             </h1>
           ) : (
             <h1
@@ -67,7 +70,7 @@ export default function MyCredits() {
                 fontSize: "28px",
               }}
             >
-              Loading Data about your credits
+              Loading your remaining amount of transcription time
             </h1>
           )}
           <h2
@@ -76,7 +79,7 @@ export default function MyCredits() {
               marginTop: "64px",
             }}
           >
-            Add credits
+            Pick your plan
           </h2>
 
           <div
@@ -101,67 +104,22 @@ export default function MyCredits() {
                   marginRight: "36px",
                   minWidth: "200px",
                 }}
-                placeholder="$10"
+                placeholder="Pick your plan"
                 type=""
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={(e) => setProductId(e.target.value)}
               >
-                {" "}
-                <option value="10">$10</option>
-                <option value="20">$20</option>
-                <option value="30">$30</option>
+                <option value="" disabled selected>
+                  Your choices
+                </option>
+                <option value="price_1NkpcgJ7QtFqMwlQqy2Ofg0q">Basic</option>
+                <option value="price_1Nkpd9J7QtFqMwlQXI6y8sk6">Premium</option>
+                <option value="price_1NkpdUJ7QtFqMwlQy3ez0cW2">Pro</option>
               </select>
 
-              <Checkout amount={amount} />
+              <Checkout productId={productId} />
             </div>
           </div>
         </div>
-        {/*
-        <div
-          className="my-credits-usage"
-          style={{
-            borderRadius: "15px",
-            padding: "36px",
-            maxWidth: "60vw",
-            margin: "0 auto",
-            boxShadow: "1px 1px 15px rgba(160,96,255, .4)",
-            marginTop: "8vh",
-          }}
-        >
-          
-          <h2
-            style={{
-              fontSize: "44px",
-            }}
-          >
-            Usage Summary
-          </h2>
-          <div style={{ marginBottom: "20px" }}>
-            <h3>- Transcriptions</h3>
-            <h3>- Questions</h3>
-          </div>
-
-          <h2
-            style={{
-              marginTop: "8vh",
-              fontSize: "44px",
-            }}
-          >
-            Usage History
-          </h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "10px",
-            }}
-          >
-            <h3>Date</h3>
-            <h3>Type</h3>
-            <h3>Usage</h3>
-            <h3>Charge</h3>
-          </div>
-        </div>
-          */}
       </div>
     </>
   );
