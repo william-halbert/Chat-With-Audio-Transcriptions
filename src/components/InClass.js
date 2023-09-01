@@ -58,7 +58,9 @@ export default function InClass() {
       });
 
       //create a websocket connection
-      const socket = new WebSocket("ws://localhost:3002");
+      const socket = new WebSocket(
+        "wss://chat-with-notes-server-b9f51be04d4f.herokuapp.com"
+      );
 
       socket.onopen = () => {
         console.log("WebSocket connection opened.");

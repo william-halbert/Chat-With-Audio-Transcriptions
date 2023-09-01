@@ -18,6 +18,7 @@ import InClass from "./InClass";
 import Notebook from "./Notebook";
 import Pdf from "./Pdf";
 import Ppt from "./Ppt";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/library" element={<Dashboard />} />
               <Route path="/notebook" element={<Notebook />} />
               <Route path="/pdf" element={<Pdf />} />
               <Route path="/ppt" element={<Ppt />} />
