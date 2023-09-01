@@ -51,11 +51,22 @@ export default function InClass() {
 
     //Add microphone access
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      if (!MediaRecorder.isTypeSupported("audio/webm"))
+      let mimeType;
+      if (MediaRecorder.isTypeSupported("audio/webm")) {
+        mimeType = "audio/webm";
+      } else if (MediaRecorder.isTypeSupported("audio/wav")) {
+        mimeType = "audio/wav";
+      } else if (MediaRecorder.isTypeSupported("audio/mp3")) {
+        mimeType = "audio/mp3";
+      } else if (
+        MediaRecorder.isTypeSupported("audio/mp4") &&
+        navigator.userAgent.includes("Safari")
+      ) {
+        mimeType = "audio/mp4"; // for Safari
+      } else {
         return alert("Browser not supported");
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: "audio/webm",
-      });
+      }
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
 
       //create a websocket connection
       const socket = new WebSocket(
