@@ -1,3 +1,5 @@
+@import "~katex/dist/katex.min.css";
+
 .transcript-summary h2,
 .transcript-summary p,
 .transcript-summary ul,

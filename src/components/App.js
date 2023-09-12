@@ -19,6 +19,7 @@ import Notebook from "./Notebook";
 import Pdf from "./Pdf";
 import Ppt from "./Ppt";
 import Dashboard from "./Dashboard";
+import Image from "./Image";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/library" element={<Dashboard />} />
+              <Route path="/image" element={<Image />} />
               <Route path="/notebook" element={<Notebook />} />
               <Route path="/pdf" element={<Pdf />} />
               <Route path="/ppt" element={<Ppt />} />
