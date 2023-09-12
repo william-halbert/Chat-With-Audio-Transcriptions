@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 import { InlineMath, BlockMath } from "react-katex";
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from "react-html-parser";
 
 function Image() {
   const [file, setFile] = useState(null);
